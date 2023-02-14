@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <title>Babylon Template</title>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+    <script src="scene.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+          }
+          
+          #background-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100vh;
+            min-height: 100vh;
+            width: 100vw;
+            height: 100vh;
+            z-index: -100;
+            transform: translate(-50%, -50%);
+          }
+          #renderCanvas {
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+        }
+          
+    </style>
+</head>
+
+<body>
+    
+    <video id="background-video" autoplay loop muted>
+        <source src="/animation1.mp4" type="video/mp4">
+      </video>
+    <canvas id="renderCanvas"></canvas>
+      
+      <script>
+          const canvas = document.getElementById("renderCanvas"); // Get the canvas element
+          const engine = new BABYLON.Engine(canvas, true);
+          const scene = new BABYLON.Scene(engine);
+          
+  
+          engine.runRenderLoop(() => {
+              scene.render();
+          });
+          
+          
+          // Register a render loop to repeatedly render the scene
+          createScene(engine).then(sceneToRender => { 
+            engine.runRenderLoop(() => sceneToRender.render());
+          });
+          
+        
+          
+  
+          // Watch for browser/canvas resize events
+          window.addEventListener("resize", function () {
+              engine.resize();
+          });
+
+          
+          
+
+      </script>
+</body>
+
+</html>
