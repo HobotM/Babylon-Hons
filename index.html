@@ -23,6 +23,7 @@
             height: 100vh;
             z-index: -100;
             transform: translate(-50%, -50%);
+            object-fit: cover;
           }
           #renderCanvas {
             width: 100%;
@@ -54,6 +55,7 @@
           // Register a render loop to repeatedly render the scene
           createScene(engine).then(sceneToRender => { 
             engine.runRenderLoop(() => sceneToRender.render());
+            
           });
           
         
@@ -64,6 +66,7 @@
               engine.resize();
           });
 
+          
           
           
 
