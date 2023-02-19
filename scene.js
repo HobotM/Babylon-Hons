@@ -10,51 +10,24 @@ var createScene = function () {
 
 
 
+// Guitar
+// Append glTF model to scene.
+BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", scene, function (scene) {
+    // Create a default arc rotate camera and light.
+    scene.createDefaultCameraOrLight(true, true, true);
 
-    // Guitar
-    // Append glTF model to scene.
-    BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", scene, function (scene) {
-        // Create a default arc rotate camera and light.
-        scene.createDefaultCameraOrLight(true, true, true);
-
-        // The default camera looks at the back of the asset.
-        // Rotate the camera by 180 degrees to the front of the asset.
-        scene.activeCamera.alpha += Math.PI / 2;
-        // Rotate the mesh around its y-axis
-        scene.activeCamera.beta -= Math.PI;
-
-        console.log(camera);
-        // Animate the camera
-        // var frames = [
-        //     {
-        //         frame: 0,
-        //         value: scene.activeCamera.position
-        //     },
-        //     {
-        //         frame: 60,
-        //         value: new BABYLON.Vector3(-50, 0, 0)
-        //     }
-        // ];
-        // var easingFunction = new BABYLON.QuadraticEase();
-        // easingFunction.setEasingMode(BABYLON.EasingFunction.EASINGMODE_EASEINOUT);
-        // BABYLON.Animation.CreateAndStartAnimation("cameraAnimation", scene.activeCamera, "position", 60, 60, scene.activeCamera.position, frames, easingFunction);
-
-        // // Render loop
-        // scene.onBeforeRenderObservable.add(function () {
-        //     // Keep the camera looking at the center of the scene
-        //     scene.activeCamera.setTarget(BABYLON.Vector3.Zero());
-        // });
-
-
-
-
+    // The default camera looks at the back of the asset.
+    // Rotate the camera by 180 degrees to the front of the asset.
+    scene.activeCamera.alpha += Math.PI / 2;
+    // Rotate the mesh around its y-axis
+    scene.activeCamera.beta -= Math.PI;
 
     var pickResult;
     var originalMaterial;
     var highlightMaterial;
 
     // Get the original material from the Blender object
-    originalMaterial = scene.getMaterialByName("Material1");
+    originalMaterial = scene.getMaterialByName("E-G");
     console.log(originalMaterial)
     if (!originalMaterial) {
         console.error("Material not found:");
@@ -64,47 +37,106 @@ var createScene = function () {
     console.log("Original material:", originalMaterial.name);
 
     // Create a new material for highlighting
-    highlightMaterial = originalMaterial.clone("Material1");
+    highlightMaterial = originalMaterial.clone("E-G");
     highlightMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1); // Set the diffuse color to white
     highlightMaterial.alpha = 0.3; // Set the alpha value to 0.5 for semi-transparency
 
     console.log("cloned");
 
-    console.log("cloned");
-    // Perform the raycasting operation on every frame
+    var isHighlighted = false;
+
+    // Perform the raycasting operation when the mouse is moved
     scene.onPointerObservable.add(function (pointerInfo) {
-        if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERPICK) {
+        if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERMOVE) {
             pickResult = scene.pick(pointerInfo.event.clientX, pointerInfo.event.clientY, function (mesh) {
                 // Return true for the mesh with the correct material
-
                 return mesh.material === originalMaterial;
             });
 
-            // Check if the ray hit anything
-            if (pickResult.hit) {
+            // Check if the pointer is over the guitar mesh
+            if (pickResult.hit && !isHighlighted) {
                 // Change the material to the highlight material
                 pickResult.pickedMesh.material = highlightMaterial;
                 console.log("Highlighted note quad.");
-
-                // Play the sound
-                var sound = new BABYLON.Sound("C", "Sound/C.mp3", scene, function () {
-                    console.log("Sound started playing.");
-                }, {
-                    autoplay: true
-                });
-            } else {
+                isHighlighted = true;
+            } else if (!pickResult.hit && isHighlighted) {
                 // Change back to the original material
                 scene.meshes.forEach(function (mesh) {
                     if (mesh.material === highlightMaterial) {
                         mesh.material = originalMaterial;
                     }
                 });
+                isHighlighted = false;
             }
+        } else if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERDOWN && isHighlighted) {
+            // Play the sound when the mouse is clicked and the material is highlighted
+            var guitarSound = new Audio('Sound/p-hub-intro.mp3');
+            guitarSound.play();
         }
     });
 
+
+    var pickResult1;
+    var originalMaterial1;
+    var highlightMaterial1;
+
+    // Get the original material from the Blender object
+    originalMaterial1 = scene.getMaterialByName("E-F#");
+    console.log(originalMaterial1)
+    if (!originalMaterial1) {
+        console.error("Material not found:");
+        return;
+    }
+
+    console.log("Original material:", originalMaterial1.name);
+
+    // Create a new material for highlighting
+    highlightMaterial1 = originalMaterial1.clone("E-F#");
+    highlightMaterial1.emissiveColor = new BABYLON.Color3(1, 1, 1); // Set the diffuse color to white
+    highlightMaterial1.alpha = 0.3; // Set the alpha value to 0.5 for semi-transparency
+
+    console.log("cloned");
+
+    var isHighlighted1 = false;
+
+    // Perform the raycasting operation when the mouse is moved
+    scene.onPointerObservable.add(function (pointerInfo) {
+        if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERMOVE) {
+            pickResult1 = scene.pick(pointerInfo.event.clientX, pointerInfo.event.clientY, function (mesh) {
+                // Return true for the mesh with the correct material
+                return mesh.material === originalMaterial1;
+            });
+
+            // Check if the pointer is over the guitar mesh
+            if (pickResult1.hit && !isHighlighted1) {
+                // Change the material to the highlight material
+                pickResult1.pickedMesh.material = highlightMaterial1;
+                console.log("Highlighted note quad.");
+                isHighlighted1 = true;
+            } else if (!pickResult1.hit && isHighlighted1) {
+                // Change back to the original material
+                scene.meshes.forEach(function (mesh) {
+                    if (mesh.material === highlightMaterial1) {
+                        mesh.material = originalMaterial1;
+                    }
+                });
+                isHighlighted1 = false;
+            }
+        } else if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERDOWN && isHighlighted1) {
+            // Play the sound when the mouse is clicked and the material is highlighted
+            var guitarSound1 = new Audio('Sound/pew.mp3');
+            guitarSound1.play();
+        }
+    });
 });
 
+
+
+  
+
+    
+
+  
 
 
 

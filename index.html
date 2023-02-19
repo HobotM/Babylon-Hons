@@ -4,6 +4,7 @@
     <title>Babylon Template</title>
     <script src="https://cdn.babylonjs.com/babylon.js"></script>
     <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+    <script async type="text/javascript" src="https://www.scales-chords.com/api/scales-chords-api.js"></script>
     <script src="scene.js"></script>
 
     <style>
@@ -57,18 +58,12 @@
             engine.runRenderLoop(() => sceneToRender.render());
             
           });
-          
-        
-          
-  
+ 
           // Watch for browser/canvas resize events
           window.addEventListener("resize", function () {
               engine.resize();
           });
 
-          
-          
-          
 
       </script>
 </body>
