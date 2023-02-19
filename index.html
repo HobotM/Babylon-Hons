@@ -1,71 +1,129 @@
 <html>
 
 <head>
-    <title>Babylon Template</title>
-    <script src="https://cdn.babylonjs.com/babylon.js"></script>
-    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
-    <script async type="text/javascript" src="https://www.scales-chords.com/api/scales-chords-api.js"></script>
-    <script src="scene.js"></script>
+  <title>Babylon Template</title>
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="scene.js"></script>
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #000;
-          }
-          
-          #background-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100vh;
-            min-height: 100vh;
-            width: 100vw;
-            height: 100vh;
-            z-index: -100;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-          }
-          #renderCanvas {
-            width: 100%;
-            height: 100%;
-            z-index: 100;
-        }
-          
-    </style>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      scroll-behavior: smooth;
+    }
+  
+    #background-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100vh;
+      min-height: 100vh;
+      width: 100vw;
+      height: 100vh;
+      z-index: -100;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+    }
+  
+    #renderCanvas {
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+    }
+  
+    #note-text {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 36px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 2px 2px black;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.5s;
+      margin-top: 100px;
+    }
+  
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+      padding: 0 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+    }
+  
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #008CBA;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      margin: 0 10px;
+      z-index: 200;
+    }
+  
+    .button:hover {
+      background-color: #005F6B;
+      z-index: 200;
+    }
+  </style>
 </head>
 
 <body>
-    
-    <video id="background-video" autoplay loop muted>
-        <source src="/animation1.mp4" type="video/mp4">
-      </video>
-    <canvas id="renderCanvas"></canvas>
-      
-      <script>
-          const canvas = document.getElementById("renderCanvas"); // Get the canvas element
-          const engine = new BABYLON.Engine(canvas, true);
-          const scene = new BABYLON.Scene(engine);
-          
-  
-          engine.runRenderLoop(() => {
-              scene.render();
-          });
-          
-          
-          // Register a render loop to repeatedly render the scene
-          createScene(engine).then(sceneToRender => { 
-            engine.runRenderLoop(() => sceneToRender.render());
-            
-          });
- 
-          // Watch for browser/canvas resize events
-          window.addEventListener("resize", function () {
-              engine.resize();
-          });
+  <video id="background-video" autoplay loop muted>
+    <source src="/animation1.mp4" type="video/mp4">
+  </video>
+
+  <div class="container">
+    <a href="#" class="button">Lesson 1</a>
+    <a href="#" class="button">Lesson 2</a>
+    <a href="#" class="button">Lesson 3</a>
+  </div>
+  <canvas id="renderCanvas">
+  </canvas>
+  <div id="note-text"></div>
 
 
-      </script>
+  <script>
+    const canvas = document.getElementById("renderCanvas"); // Get the canvas element
+    const engine = new BABYLON.Engine(canvas, true);
+    const scene = new BABYLON.Scene(engine);
+
+
+    engine.runRenderLoop(() => {
+      scene.render();
+    });
+
+
+    // Register a render loop to repeatedly render the scene
+    createScene(engine).then(sceneToRender => {
+      engine.runRenderLoop(() => sceneToRender.render());
+
+    });
+
+    // Watch for browser/canvas resize events
+    window.addEventListener("resize", function () {
+      engine.resize();
+    });
+
+
+  </script>
 </body>
 
 </html>

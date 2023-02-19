@@ -22,112 +22,84 @@ BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", scene, function (sc
     // Rotate the mesh around its y-axis
     scene.activeCamera.beta -= Math.PI;
 
-    var pickResult;
-    var originalMaterial;
-    var highlightMaterial;
-
-    // Get the original material from the Blender object
-    originalMaterial = scene.getMaterialByName("E-G");
-    console.log(originalMaterial)
-    if (!originalMaterial) {
-        console.error("Material not found:");
-        return;
-    }
-
-    console.log("Original material:", originalMaterial.name);
-
-    // Create a new material for highlighting
-    highlightMaterial = originalMaterial.clone("E-G");
-    highlightMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1); // Set the diffuse color to white
-    highlightMaterial.alpha = 0.3; // Set the alpha value to 0.5 for semi-transparency
-
-    console.log("cloned");
-
-    var isHighlighted = false;
-
-    // Perform the raycasting operation when the mouse is moved
-    scene.onPointerObservable.add(function (pointerInfo) {
-        if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERMOVE) {
+    function createNoteInteraction(originalMaterialName, highlightColor, soundFileName) {
+        var pickResult;
+        var originalMaterial;
+        var highlightMaterial;
+        var isHighlighted = false;
+      
+        // Get the original material from the Blender object
+        originalMaterial = scene.getMaterialByName(originalMaterialName);
+        if (!originalMaterial) {
+          console.error("Material not found:", originalMaterialName);
+          return;
+        }
+      
+        // Create a new material for highlighting
+        highlightMaterial = originalMaterial.clone(originalMaterialName + "_highlight");
+        highlightMaterial.emissiveColor = highlightColor;
+        highlightMaterial.alpha = 0.3;
+      
+        // Cache the meshes with the original material
+        var originalMeshes = scene.meshes.filter(function (mesh) {
+          return mesh.material === originalMaterial;
+        });
+      
+        // Perform the raycasting operation when the mouse is moved
+        scene.onPointerObservable.add(function (pointerInfo) {
+          if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERMOVE) {
             pickResult = scene.pick(pointerInfo.event.clientX, pointerInfo.event.clientY, function (mesh) {
-                // Return true for the mesh with the correct material
-                return mesh.material === originalMaterial;
+              // Check if the mesh has one of the original materials
+              return originalMeshes.indexOf(mesh) !== -1;
             });
-
+      
             // Check if the pointer is over the guitar mesh
             if (pickResult.hit && !isHighlighted) {
-                // Change the material to the highlight material
-                pickResult.pickedMesh.material = highlightMaterial;
-                console.log("Highlighted note quad.");
-                isHighlighted = true;
+              // Change the material to the highlight material
+              pickResult.pickedMesh.material = highlightMaterial;
+              console.log("Highlighted note quad.");
+              isHighlighted = true;
             } else if (!pickResult.hit && isHighlighted) {
-                // Change back to the original material
-                scene.meshes.forEach(function (mesh) {
-                    if (mesh.material === highlightMaterial) {
-                        mesh.material = originalMaterial;
-                    }
-                });
-                isHighlighted = false;
+              // Change back to the original material
+              originalMeshes.forEach(function (mesh) {
+                mesh.material = originalMaterial;
+              });
+              isHighlighted = false;
             }
-        } else if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERDOWN && isHighlighted) {
+          } else if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERDOWN && isHighlighted) {
             // Play the sound when the mouse is clicked and the material is highlighted
-            var guitarSound = new Audio('Sound/p-hub-intro.mp3');
-            guitarSound.play();
-        }
-    });
+            var noteSound = new Audio('Sound/' + soundFileName);
+            noteSound.play();
+            
+            // Display the text for 2 seconds
+            var noteText = document.getElementById("note-text");
+            noteText.innerHTML = originalMaterialName;
+            noteText.style.opacity = 1;
+            setTimeout(function() {
+              noteText.style.opacity = 0;
+            }, 2000);
+          }
+        });
+      }
+      
+      
+      // Call the function for each note
+      createNoteInteraction("E-G", new BABYLON.Color3(1, 1, 1), "p-hub-intro.mp3");
+      createNoteInteraction("E-F#", new BABYLON.Color3(1, 1, 1), "pew.mp3");
+      createNoteInteraction("E-F", new BABYLON.Color3(1, 1, 1), "pew.mp3");
 
+      createNoteInteraction("G-G#", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
+      createNoteInteraction("G-A", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
+      createNoteInteraction("G-A#", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
 
-    var pickResult1;
-    var originalMaterial1;
-    var highlightMaterial1;
+      createNoteInteraction("B-C", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
+      createNoteInteraction("B-C#", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
+      createNoteInteraction("B-D", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
 
-    // Get the original material from the Blender object
-    originalMaterial1 = scene.getMaterialByName("E-F#");
-    console.log(originalMaterial1)
-    if (!originalMaterial1) {
-        console.error("Material not found:");
-        return;
-    }
-
-    console.log("Original material:", originalMaterial1.name);
-
-    // Create a new material for highlighting
-    highlightMaterial1 = originalMaterial1.clone("E-F#");
-    highlightMaterial1.emissiveColor = new BABYLON.Color3(1, 1, 1); // Set the diffuse color to white
-    highlightMaterial1.alpha = 0.3; // Set the alpha value to 0.5 for semi-transparency
-
-    console.log("cloned");
-
-    var isHighlighted1 = false;
-
-    // Perform the raycasting operation when the mouse is moved
-    scene.onPointerObservable.add(function (pointerInfo) {
-        if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERMOVE) {
-            pickResult1 = scene.pick(pointerInfo.event.clientX, pointerInfo.event.clientY, function (mesh) {
-                // Return true for the mesh with the correct material
-                return mesh.material === originalMaterial1;
-            });
-
-            // Check if the pointer is over the guitar mesh
-            if (pickResult1.hit && !isHighlighted1) {
-                // Change the material to the highlight material
-                pickResult1.pickedMesh.material = highlightMaterial1;
-                console.log("Highlighted note quad.");
-                isHighlighted1 = true;
-            } else if (!pickResult1.hit && isHighlighted1) {
-                // Change back to the original material
-                scene.meshes.forEach(function (mesh) {
-                    if (mesh.material === highlightMaterial1) {
-                        mesh.material = originalMaterial1;
-                    }
-                });
-                isHighlighted1 = false;
-            }
-        } else if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERDOWN && isHighlighted1) {
-            // Play the sound when the mouse is clicked and the material is highlighted
-            var guitarSound1 = new Audio('Sound/pew.mp3');
-            guitarSound1.play();
-        }
-    });
+      createNoteInteraction("B-C", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
+      createNoteInteraction("B-C#", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
+      createNoteInteraction("B-D", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
+      
 });
 
 
@@ -146,7 +118,13 @@ BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", scene, function (sc
 
 
 
-
+//  // Call the function for each note
+//  createNoteInteraction("E-G", new BABYLON.Color3(1, 1, 1), "p-hub-intro.mp3");
+//  createNoteInteraction("E-F#", new BABYLON.Color3(1, 1, 1), "pew.mp3");
+//  createNoteInteraction("E-F", new BABYLON.Color3(1, 1, 1), "pew.mp3");
+//  createNoteInteraction("B-C", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
+//  createNoteInteraction("B-C#", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
+//  createNoteInteraction("B-D", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
 
 
 // //SOUNDS
