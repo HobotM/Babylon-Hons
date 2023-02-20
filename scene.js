@@ -84,35 +84,29 @@ BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", scene, function (sc
       
       
       // Call the function for each note
-      createNoteInteraction("E-G", new BABYLON.Color3(1, 1, 1), "p-hub-intro.mp3");
-      createNoteInteraction("E-F#", new BABYLON.Color3(1, 1, 1), "pew.mp3");
-      createNoteInteraction("E-F", new BABYLON.Color3(1, 1, 1), "pew.mp3");
+      createNoteInteraction("E-G", new BABYLON.Color3(1, 1, 1), "E-G.mp3");
+      createNoteInteraction("E-F#", new BABYLON.Color3(1, 1, 1), "E-Fs.mp3");
+      createNoteInteraction("E-F", new BABYLON.Color3(1, 1, 1), "E-F.mp3");
 
-      createNoteInteraction("G-G#", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
-      createNoteInteraction("G-A", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
-      createNoteInteraction("G-A#", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
+      createNoteInteraction("G-G#", new BABYLON.Color3(1, 1, 1), "G-Gs.mp3");
+      createNoteInteraction("G-A", new BABYLON.Color3(1, 1, 1), "G-A.mp3");
+      createNoteInteraction("G-A#", new BABYLON.Color3(1, 1, 1), "G-As.mp3");
 
-      createNoteInteraction("B-C", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
-      createNoteInteraction("B-C#", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
-      createNoteInteraction("B-D", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
+      createNoteInteraction("B-C", new BABYLON.Color3(1, 1, 1), "B-C.mp3");
+      createNoteInteraction("B-C#", new BABYLON.Color3(1, 1, 1), "B-Cs.mp3");
+      createNoteInteraction("B-D", new BABYLON.Color3(1, 1, 1), "B-D.mp3");
 
-      createNoteInteraction("D-D#", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
-      createNoteInteraction("D-E", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
-      createNoteInteraction("D-F", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
-<<<<<<< HEAD
-
-      createNoteInteraction("D-D#", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
-      createNoteInteraction("D-E", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
-      createNoteInteraction("D-F", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
-=======
+      createNoteInteraction("D-D#", new BABYLON.Color3(1, 1, 1), "D-Ds.mp3");
+      createNoteInteraction("D-E", new BABYLON.Color3(1, 1, 1), "D-E.mp3");
+      createNoteInteraction("D-F", new BABYLON.Color3(1, 1, 1), "D-F.mp3");
     
-      createNoteInteraction("A-A#", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
-      createNoteInteraction("A-B", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
-      createNoteInteraction("A-C", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
+      createNoteInteraction("A-A#", new BABYLON.Color3(1, 1, 1), "A-As.mp3");
+      createNoteInteraction("A-B", new BABYLON.Color3(1, 1, 1), "A-B.mp3");
+      createNoteInteraction("A-C", new BABYLON.Color3(1, 1, 1), "A-C.mp3");
     
-      createNoteInteraction("E1-G", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
-      createNoteInteraction("E1-F#", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
-      createNoteInteraction("E1-F", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
+      createNoteInteraction("E1-G", new BABYLON.Color3(1, 1, 1), "E1-G.mp3");
+      createNoteInteraction("E1-F#", new BABYLON.Color3(1, 1, 1), "E1-Fs.mp3");
+      createNoteInteraction("E1-F", new BABYLON.Color3(1, 1, 1), "E1-F.mp3");
     
     
     
@@ -187,7 +181,6 @@ BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", scene, function (sc
   highlightCurrentNote();
 }
 
->>>>>>> 3174fae30194a6490e3738714f483f49dc93433b
       
       createNoteInteraction("A-A#", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
       createNoteInteraction("A-B", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
