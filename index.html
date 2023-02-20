@@ -130,6 +130,7 @@
     // Register a render loop to repeatedly render the scene
     createScene(engine).then(sceneToRender => {
       engine.runRenderLoop(() => sceneToRender.render());
+      createQuiz(scene);
 
     });
 
