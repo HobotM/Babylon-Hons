@@ -99,10 +99,95 @@ BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", scene, function (sc
       createNoteInteraction("D-D#", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
       createNoteInteraction("D-E", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
       createNoteInteraction("D-F", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
+<<<<<<< HEAD
 
       createNoteInteraction("D-D#", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
       createNoteInteraction("D-E", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
       createNoteInteraction("D-F", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
+=======
+    
+      createNoteInteraction("A-A#", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
+      createNoteInteraction("A-B", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
+      createNoteInteraction("A-C", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
+    
+      createNoteInteraction("E1-G", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
+      createNoteInteraction("E1-F#", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
+      createNoteInteraction("E1-F", new BABYLON.Color3(1, 1, 1), "rehehehe.mp3");
+    
+    
+    
+    function createQuiz(scene) {
+  // Define the notes to be used in the quiz
+  const notes = [    {name: 'C', position: new BABYLON.Vector3(-2, 1, 0)},    {name: 'D', position: new BABYLON.Vector3(0, 1, 0)},    {name: 'E', position: new BABYLON.Vector3(2, 1, 0)},  ];
+
+  // Create a material for the highlighted note
+  const highlightMaterial = new BABYLON.StandardMaterial("highlightMaterial", scene);
+  highlightMaterial.emissiveColor = new BABYLON.Color3(0, 1, 0); // green
+
+  // Create a material for the un-highlighted notes
+  const unhighlightMaterial = new BABYLON.StandardMaterial("unhighlightMaterial", scene);
+  unhighlightMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1); // white
+
+  // Create a variable to store the current note index
+  let currentNoteIndex = 0;
+
+  // Create a function to highlight the current note
+  function highlightCurrentNote() {
+    const note = notes[currentNoteIndex];
+    const mesh = scene.getMeshByName(note.name);
+    mesh.material = highlightMaterial;
+  }
+
+  // Create a function to un-highlight all notes
+  function unhighlightAllNotes() {
+    notes.forEach(note => {
+      const mesh = scene.getMeshByName(note.name);
+      mesh.material = unhighlightMaterial;
+    });
+  }
+
+  // Create a function to handle user input
+  function handleInput(noteName) {
+    const currentNote = notes[currentNoteIndex];
+    if (noteName === currentNote.name) {
+      // Correct note
+      currentNoteIndex++;
+      if (currentNoteIndex >= notes.length) {
+        // End of quiz
+        alert('Congratulations, you completed the quiz!');
+        unhighlightAllNotes();
+        currentNoteIndex = 0;
+      } else {
+        // Next note
+        highlightCurrentNote();
+      }
+    } else {
+      // Incorrect note
+      alert('Incorrect, please try again.');
+      const mesh = scene.getMeshByName(noteName);
+      mesh.material.emissiveColor = new BABYLON.Color3(1, 0, 0); // red
+      setTimeout(() => {
+        mesh.material = unhighlightMaterial;
+      }, 1000);
+    }
+  }
+
+  // Set up event listeners for each note
+  notes.forEach(note => {
+    const mesh = scene.getMeshByName(note.name);
+    mesh.actionManager = new BABYLON.ActionManager(scene);
+    mesh.actionManager.registerAction(
+      new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, () => {
+        handleInput(note.name);
+      })
+    );
+  });
+
+  // Highlight the first note
+  highlightCurrentNote();
+}
+
+>>>>>>> 3174fae30194a6490e3738714f483f49dc93433b
       
       createNoteInteraction("A-A#", new BABYLON.Color3(1, 1, 1), "emotional-damage-meme.mp3");
       createNoteInteraction("A-B", new BABYLON.Color3(1, 1, 1), "error_CDOxCYm.mp3");
@@ -296,7 +381,6 @@ BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", scene, function (sc
 //     soundF.play();
 // }));
  
-
 
 return scene;
 }
