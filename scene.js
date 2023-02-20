@@ -367,14 +367,6 @@ BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", scene, function (sc
 //     soundF.play();
 // }));
  
-async function createScene(engine) {
-  const scene = new BABYLON.Scene(engine);
-  
-  await Promise.all([planeTask, sphereTask]);
-  createQuiz(scene); // Add this line
-  return scene;
-}
-
 
 return scene;
 }
