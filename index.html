@@ -82,6 +82,8 @@
       background-color: #005F6B;
       z-index: 200;
     }
+
+    
   </style>
 </head>
 
@@ -104,7 +106,6 @@
     const canvas = document.getElementById("renderCanvas"); // Get the canvas element
     const engine = new BABYLON.Engine(canvas, true);
     const scene = new BABYLON.Scene(engine);
-
 
     engine.runRenderLoop(() => {
       scene.render();
