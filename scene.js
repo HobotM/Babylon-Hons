@@ -23,25 +23,37 @@ var createScene = function () {
     scene.activeCamera.beta -= Math.PI;
     
     
-    // Set the initial camera position and target
-camera.setPosition(new BABYLON.Vector3(0, 10, -20));
-camera.setTarget(new BABYLON.Vector3(0, 0, 0));
+    // Define the starting and ending positions for the camera
+const startingPosition = new BABYLON.Vector3(0, 0, 50);
+const endingPosition = new BABYLON.Vector3(-15, 0, 10);
 
-// Wait 5 seconds before zooming in
-setTimeout(function() {
-  // Set the new camera position and target
-  camera.setPosition(new BABYLON.Vector3(-10, 5, -10));
-  camera.setTarget(guitar.getBoundingInfo().boundingBox.minimum);
-  
-  // Animate the camera movement over 2 seconds
-  var animation = new BABYLON.Animation("cameraAnimation", "position", 60, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
-  var keys = [];
-  keys.push({frame: 0, value: camera.position});
-  keys.push({frame: 120, value: new BABYLON.Vector3(-10, 5, -10)});
-  animation.setKeys(keys);
-  camera.animations.push(animation);
-  scene.beginAnimation(camera, 0, 120, false, 2);
+// Define the animation keyframes
+const keys = [
+  { frame: 0, value: startingPosition },
+  { frame: 100, value: endingPosition },
+];
+
+// Create the animation
+const animation = new BABYLON.Animation(
+  "cameraZoom", // Animation name
+  "position", // Property to animate
+  100, // Total number of frames
+  BABYLON.Animation.ANIMATIONTYPE_VECTOR3, // Animation type
+  BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT // Loop mode
+);
+
+// Set the animation keyframes
+animation.setKeys(keys);
+
+// Attach the animation to the camera
+camera.animations.push(animation);
+
+// Start the animation and play it for 5 seconds
+scene.beginAnimation(camera, 0, 100, true, 1, () => {
+  // Animation has ended
 }, 5000);
+    
+    
     
     
     
