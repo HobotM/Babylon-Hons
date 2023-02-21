@@ -2,9 +2,12 @@ var createScene = function () {
   //const scene = new BABYLON.Scene(engine);
   const alpha = 3 * Math.PI / 2;
   const beta = Math.PI / 5;
+  const radius = 20;
   const target = new BABYLON.Vector3(2, 0, 0);
-  const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, target, scene);
+  const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, radius, target, scene);
   camera.attachControl(canvas, true);
+  scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+
 
 
   // Guitar
@@ -18,8 +21,6 @@ var createScene = function () {
     scene.activeCamera.alpha += Math.PI / 2;
     // Rotate the mesh around its y-axis
     scene.activeCamera.beta -= Math.PI;
-   
-    
 
     function createNoteInteraction(originalMaterialName, highlightColor, soundFileName) {
       var pickResult;
