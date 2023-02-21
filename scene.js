@@ -24,35 +24,7 @@ var createScene = function () {
     
     
     
-    // Define the starting and ending positions for the camera
-const startingPosition =  scene.createDefaultCameraOrLight(true, true, true);
-const endingPosition =  scene.createDefaultCameraOrLight(true, true, true);
 
-// Define the animation keyframes
-const keys = [
-  { frame: 0, value: startingPosition },
-  { frame: 100, value: endingPosition },
-];
-
-// Create the animation
-const animation = new BABYLON.Animation(
-  "cameraZoom", // Animation name
-  "position", // Property to animate
-  100, // Total number of frames
-  BABYLON.Animation.ANIMATIONTYPE_VECTOR3, // Animation type
-  BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT // Loop mode
-);
-
-// Set the animation keyframes
-animation.setKeys(keys);
-
-// Attach the animation to the camera
-camera.animations.push(animation);
-
-// Start the animation and play it for 5 seconds
-scene.beginAnimation(camera, 0, 100, true, 1, () => {
-  // Animation has ended
-}, 5000);
     
     
     
