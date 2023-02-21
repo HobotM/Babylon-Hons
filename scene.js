@@ -113,8 +113,6 @@ var createScene = function () {
     createNoteInteraction("E1-F", new BABYLON.Color3(1, 1, 1), "E1-F.mp3");
 
 
-
-
   });
 
 
