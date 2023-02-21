@@ -2,13 +2,9 @@ var createScene = function () {
   //const scene = new BABYLON.Scene(engine);
   const alpha = 3 * Math.PI / 2;
   const beta = Math.PI / 5;
-   const startRadius = 40;
-  const endRadius = 20; // The radius we want to zoom in to
   const target = new BABYLON.Vector3(2, 0, 0);
-  const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, radius, target, scene);
+  const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, target, scene);
   camera.attachControl(canvas, true);
-  scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
-
 
 
   // Guitar
@@ -22,36 +18,7 @@ var createScene = function () {
     scene.activeCamera.alpha += Math.PI / 2;
     // Rotate the mesh around its y-axis
     scene.activeCamera.beta -= Math.PI;
-    
-      // Create an animation to zoom in on the guitar
-    const animation = new BABYLON.Animation(
-      "cameraRadiusAnimation",
-      "radius",
-      60, // frames per second
-      BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-      BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
-    );
-    
-    // Define the animation keys
-    const keys = [];
-    keys.push({
-      frame: 0,
-      value: startRadius // start with the initial radius
-    });
-    keys.push({
-      frame: 100, // the animation will run for 100 frames
-      value: endRadius // end with the target radius
-    });
-    
-    // Set the animation keys
-    animation.setKeys(keys);
-    
-    // Attach the animation to the camera
-    camera.animations.push(animation);
-    
-    // Run the animation when the scene is loaded
-    scene.beginAnimation(camera, 0, 100, false);
-    
+   
     
 
     function createNoteInteraction(originalMaterialName, highlightColor, soundFileName) {
