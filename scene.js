@@ -51,12 +51,6 @@ var createScene = function () {
     
     // Run the animation when the scene is loaded
     scene.beginAnimation(camera, 0, 100, false);
-  });
-  
-
-    
-    
-    
     
     
 
