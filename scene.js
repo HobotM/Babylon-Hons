@@ -14,7 +14,7 @@ var createScene = function () {
   // Append glTF model to scene.
   BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", scene, function (scene) {
     // Create a default arc rotate camera and light.
-    //scene.createDefaultCameraOrLight(true, true, true);
+    scene.createDefaultCameraOrLight(true, true, true);
 
     // The default camera looks at the back of the asset.
     // Rotate the camera by 180 degrees to the front of the asset.
@@ -25,8 +25,8 @@ var createScene = function () {
     
     
     // Define the starting and ending positions for the camera
-const startingPosition = new BABYLON.Vector3(0, 0, 50);
-const endingPosition = new BABYLON.Vector3(-15, 0, 10);
+const startingPosition =  scene.createDefaultCameraOrLight(true, true, true);
+const endingPosition =  scene.createDefaultCameraOrLight(true, true, true);
 
 // Define the animation keyframes
 const keys = [
