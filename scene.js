@@ -21,6 +21,30 @@ var createScene = function () {
     scene.activeCamera.alpha += Math.PI / 2;
     // Rotate the mesh around its y-axis
     scene.activeCamera.beta -= Math.PI;
+    
+    
+    // Set the initial camera position and target
+camera.setPosition(new BABYLON.Vector3(0, 10, -20));
+camera.setTarget(new BABYLON.Vector3(0, 0, 0));
+
+// Wait 5 seconds before zooming in
+setTimeout(function() {
+  // Set the new camera position and target
+  camera.setPosition(new BABYLON.Vector3(-10, 5, -10));
+  camera.setTarget(guitar.getBoundingInfo().boundingBox.minimum);
+  
+  // Animate the camera movement over 2 seconds
+  var animation = new BABYLON.Animation("cameraAnimation", "position", 60, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+  var keys = [];
+  keys.push({frame: 0, value: camera.position});
+  keys.push({frame: 120, value: new BABYLON.Vector3(-10, 5, -10)});
+  animation.setKeys(keys);
+  camera.animations.push(animation);
+  scene.beginAnimation(camera, 0, 120, false, 2);
+}, 5000);
+    
+    
+    
 
     function createNoteInteraction(originalMaterialName, highlightColor, soundFileName) {
       var pickResult;
