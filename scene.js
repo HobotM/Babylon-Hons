@@ -2,25 +2,64 @@ var createScene = function () {
   //const scene = new BABYLON.Scene(engine);
   const alpha = 3 * Math.PI / 2;
   const beta = Math.PI / 5;
-  const radius = 20;
-  const target = new BABYLON.Vector3(2, 0, 0);
+  const radius = 400;
+  const target = new BABYLON.Vector3(0, 0, -100);
   const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, radius, target, scene);
   camera.attachControl(canvas, true);
   scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
 
+  
 
+  // Zoom in animation
+  function zoomToTarget(camera, targetPosition, delay = 0, duration = 1000) {
+
+
+    const zoomAnimation = new BABYLON.Animation(
+      "zoomAnimation",
+      "radius",
+      duration,
+      BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+      BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
+    );
+  
+    const keys = [];
+    keys.push({
+      frame: 0,
+      value: camera.radius
+    });
+    keys.push({
+      frame: duration,
+      value: targetPosition.subtract(camera.position).length()
+    });
+  
+    zoomAnimation.setKeys(keys);
+  
+    setTimeout(() => {
+      scene.beginDirectAnimation(camera, [zoomAnimation], 0, duration, false);
+       // This targets the camera to scene origin
+    camera.setTarget(new BABYLON.Vector3(0,0, -250));
+    scene.activeCamera.alpha -= Math.PI /2;
+    scene.activeCamera.beta -= Math.PI ;
+    }, delay);
+
+  }
+  
+ 
 
   // Guitar
   // Append glTF model to scene.
   BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", scene, function (scene) {
     // Create a default arc rotate camera and light.
-    scene.createDefaultCameraOrLight(true, true, true);
+    
+    scene.createDefaultCameraOrLight(true, false, true);
 
     // The default camera looks at the back of the asset.
     // Rotate the camera by 180 degrees to the front of the asset.
     scene.activeCamera.alpha += Math.PI / 2;
     // Rotate the mesh around its y-axis
     scene.activeCamera.beta -= Math.PI;
+    
+
 
     function createNoteInteraction(originalMaterialName, highlightColor, soundFileName) {
       var pickResult;
@@ -116,14 +155,58 @@ var createScene = function () {
   });
 
 
+      const targetPosition = new BABYLON.Vector3(0, 200, -250);
+      const delay = 3000; // 5-second delay
+      const duration = 3000; // 2-second animation duration
+      zoomToTarget(camera, targetPosition, delay, duration);
+  
 
+ 
+  
 
+// Create a GUI element
+var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
+// Create Lesson 1 button
+var button1 = BABYLON.GUI.Button.CreateSimpleButton("lesson1", "Lesson 1");
+button1.width = "150px";
+button1.height = "40px";
+button1.color = "white";
+button1.background = "green";
+button1.top = "10px"; // Add top property to position button at the top of the screen
+button1.onPointerUpObservable.add(function() {
+    // Add code to execute when Lesson 1 button is clicked
+    console.log("Lesson 1 button clicked");
+});
+gui.addControl(button1);
 
+// Create Lesson 2 button
+var button2 = BABYLON.GUI.Button.CreateSimpleButton("lesson2", "Lesson 2");
+button2.width = "150px";
+button2.height = "40px";
+button2.color = "white";
+button2.background = "green";
+button2.top = "10px"; // Add top property to position button at the top of the screen
+button2.left = "170px"; // Add left property to position button to the right of Lesson 1 button
+button2.onPointerUpObservable.add(function() {
+    // Add code to execute when Lesson 2 button is clicked
+    console.log("Lesson 2 button clicked");
+});
+gui.addControl(button2);
 
-
-
-
+// Create Lesson 3 button
+var button3 = BABYLON.GUI.Button.CreateSimpleButton("lesson3", "Lesson 3");
+button3.width = "150px";
+button3.height = "40px";
+button3.color = "white";
+button3.background = "green";
+button3.top = "10px"; // Add top property to position button at the top of the screen
+button3.left = "330px"; // Add left property to position button to the right of Lesson 2 button
+button3.onPointerUpObservable.add(function() {
+    // Add code to execute when Lesson 3 button is clicked
+    console.log("Lesson 3 button clicked");
+});
+gui.addControl(button3);
 
 
 
