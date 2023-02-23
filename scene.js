@@ -7,6 +7,7 @@ var createScene = function () {
   const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, radius, target, scene);
   camera.attachControl(canvas, true);
   scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+  var canvas = document.getElementById("game");
 
   
 
@@ -163,50 +164,64 @@ var createScene = function () {
 
  
   
-
-// Create a GUI element
+// Create GUI element
 var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+gui.backgroundIsVisible = false;
+
+// Calculate button width based on screen size
+var buttonWidth = window.innerWidth / 6 - 50;
 
 // Create Lesson 1 button
 var button1 = BABYLON.GUI.Button.CreateSimpleButton("lesson1", "Lesson 1");
-button1.width = "150px";
+button1.width = buttonWidth + "px";
 button1.height = "40px";
 button1.color = "white";
+button1.cornerRadius = 10;
 button1.background = "green";
-button1.top = "10px"; // Add top property to position button at the top of the screen
 button1.onPointerUpObservable.add(function() {
-    // Add code to execute when Lesson 1 button is clicked
-    console.log("Lesson 1 button clicked");
+  console.log("Lesson 1 button clicked");
 });
 gui.addControl(button1);
 
 // Create Lesson 2 button
 var button2 = BABYLON.GUI.Button.CreateSimpleButton("lesson2", "Lesson 2");
-button2.width = "150px";
+button2.width = buttonWidth + "px";
 button2.height = "40px";
 button2.color = "white";
-button2.background = "green";
-button2.top = "10px"; // Add top property to position button at the top of the screen
-button2.left = "170px"; // Add left property to position button to the right of Lesson 1 button
+button2.cornerRadius = 10;
+button2.background = "red";
 button2.onPointerUpObservable.add(function() {
-    // Add code to execute when Lesson 2 button is clicked
-    console.log("Lesson 2 button clicked");
+  console.log("Lesson 2 button clicked");
 });
 gui.addControl(button2);
 
 // Create Lesson 3 button
 var button3 = BABYLON.GUI.Button.CreateSimpleButton("lesson3", "Lesson 3");
-button3.width = "150px";
+button3.width = buttonWidth + "px";
 button3.height = "40px";
 button3.color = "white";
-button3.background = "green";
-button3.top = "10px"; // Add top property to position button at the top of the screen
-button3.left = "330px"; // Add left property to position button to the right of Lesson 2 button
+button3.cornerRadius = 10;
+button3.background = "blue";
 button3.onPointerUpObservable.add(function() {
-    // Add code to execute when Lesson 3 button is clicked
-    console.log("Lesson 3 button clicked");
+  console.log("Lesson 3 button clicked");
 });
 gui.addControl(button3);
+
+// Position buttons on top of screen with equal spacing
+button1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+button1.left = 10;
+button1.top = "-46%";
+
+button2.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+button2.top = "-46%";
+
+button3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+button3.left = -10;
+button3.top = "-46%";
+
+
+
+
 
 
 
