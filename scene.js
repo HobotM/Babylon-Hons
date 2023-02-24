@@ -7,7 +7,13 @@ var createScene = function () {
   const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, radius, target, scene);
   camera.attachControl(canvas, true);
   scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
-  var canvas = document.getElementById("game");
+  
+  function loadLesson1() {
+  BABYLON.SceneLoader.ImportMesh("", "lesson1.js", scene, function () {
+    // Code to execute after scene has finished loading
+    console.log("Lesson 1 scene loaded");
+  });
+}
 
   
 
