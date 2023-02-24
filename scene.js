@@ -184,7 +184,14 @@ button1.color = "white";
 button1.cornerRadius = 10;
 button1.background = "green";
 button1.onPointerUpObservable.add(function() {
-  console.log("Lesson 1 button clicked");
+  // Create a new scene
+  var newScene = new BABYLON.Scene(engine);
+
+  // Add any scene elements you want to the new scene here
+
+  // Open the new scene
+  engine.scenes.push(newScene);
+  engine.enterFullscreen(true);
 });
 gui.addControl(button1);
 
