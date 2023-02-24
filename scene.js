@@ -221,30 +221,38 @@ button3.left = -10;
 button3.top = "-46%";
 
 
-function loadLesson1() {
-  console.log("Loading lesson1.js...");
-  BABYLON.Tools.LoadFile("lesson1.js", function (data) {
-    // dispose old scene
-    scene.dispose();
-    // create new scene from loaded data
-    var newScene = new BABYLON.Scene(engine);
-    var parsedData = JSON.parse(data);
-    parsedData.meshes.forEach(function(meshData) {
-      // create meshes from parsed data
-      var mesh = BABYLON.MeshBuilder.CreateMesh(meshData.name, {}, newScene);
-      mesh.position.copyFromFloats(meshData.position.x, meshData.position.y, meshData.position.z);
-      mesh.rotationQuaternion = new BABYLON.Quaternion(meshData.rotation.x, meshData.rotation.y, meshData.rotation.z, meshData.rotation.w);
-      mesh.scaling.copyFromFloats(meshData.scaling.x, meshData.scaling.y, meshData.scaling.z);
-      // set mesh material
-      var material = new BABYLON.StandardMaterial(meshData.material.name, newScene);
-      material.diffuseColor.copyFrom(meshData.material.diffuseColor);
-      material.specularColor.copyFrom(meshData.material.specularColor);
-      mesh.material = material;
+function loadScene(lesson1) {
+  // Show loading screen
+  showLoadingScreen();
+
+  // Load scene from file
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", `${sceneName}.babylon`, true);
+  xhr.addEventListener("load", function () {
+    // Load scene into engine
+    engine.loadAssetContainerAsync(`data:application/octet-stream;base64,${btoa(xhr.responseText)}`).then(function (container) {
+      // Remove current scene
+      scene.dispose();
+
+      // Set new scene
+      scene = container.meshes[0].getScene();
+      engine.scenes.push(scene);
+
+      // Hide loading screen
+      hideLoadingScreen();
+
+      // Log that the scene was loaded
+      console.log(`${sceneName} loaded`);
     });
-    // set new scene
-    scene = newScene;
   });
+  xhr.send();
 }
+
+// Add click event for "Lesson 1" button
+button1.onPointerUpObservable.add(function() {
+  loadScene("lesson1");
+});
+
 
 
 
