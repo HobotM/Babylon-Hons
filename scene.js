@@ -1,4 +1,3 @@
-import { lesson1 } from './lesson1.js';
 var createScene = function () {
   //const scene = new BABYLON.Scene(engine);
   const alpha = 3 * Math.PI / 2;
@@ -423,4 +422,3 @@ function loadScene(scene) {
 
   return scene;
 }
-createScene();
