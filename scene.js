@@ -180,7 +180,7 @@ button1.cornerRadius = 10;
 button1.background = "green";
 // Add click event for "Lesson 1" button
 button1.onPointerUpObservable.add(function() {
-  loadScene("lesson1scene");
+  lesson1scene();
 });
 
 gui.addControl(button1);
@@ -220,36 +220,6 @@ button2.top = "-46%";
 button3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
 button3.left = -10;
 button3.top = "-46%";
-
-
-function loadScene(scene) {
-  
-  // Show loading screen
-  showLoadingScreen();
-
-  // Load scene from file
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", `${lesson1}.js`, true);
-  xhr.addEventListener("load", function () {
-    // Load scene into engine
-    engine.loadAssetContainerAsync(`data:application/octet-stream;base64,${btoa(xhr.responseText)}`).then(function (container) {
-      // Remove current scene
-      scene.dispose();
-
-      // Set new scene
-      scene = container.meshes[0].getScene();
-      engine.scenes.push(scene);
-
-      // Hide loading screen
-      hideLoadingScreen();
-
-      // Log that the scene was loaded
-      console.log(`${lesson1scene} loaded`);
-    });
-  });
-  xhr.send();
-}
-
 
 
   //  // Call the function for each note
