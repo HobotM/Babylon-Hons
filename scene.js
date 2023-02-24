@@ -227,7 +227,7 @@ function loadScene(lesson1) {
 
   // Load scene from file
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", `${sceneName}.babylon`, true);
+  xhr.open("GET", `${lesson1}.js`, true);
   xhr.addEventListener("load", function () {
     // Load scene into engine
     engine.loadAssetContainerAsync(`data:application/octet-stream;base64,${btoa(xhr.responseText)}`).then(function (container) {
@@ -242,7 +242,7 @@ function loadScene(lesson1) {
       hideLoadingScreen();
 
       // Log that the scene was loaded
-      console.log(`${sceneName} loaded`);
+      console.log(`${lesson1} loaded`);
     });
   });
   xhr.send();
