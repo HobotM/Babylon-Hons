@@ -221,15 +221,16 @@ button3.left = -10;
 button3.top = "-46%";
 
 
-
 function loadLesson1() {
-  // Load lesson1.js file
-  BABYLON.SceneLoader.Load("./", "lesson1.js", engine, function (scene) {
-    // Set the loaded scene as the active scene
-    engine.scenes.pop();
-    engine.scenes.push(scene);
+  console.log("Loading lesson1.js...");
+  BABYLON.SceneLoader.Load("", "lesson1.js", engine, function (newScene) {
+    // dispose old scene
+    scene.dispose();
+    // set new scene
+    scene = newScene;
   });
 }
+
 
 
 
