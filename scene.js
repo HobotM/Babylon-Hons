@@ -235,28 +235,15 @@ button3.top = "-46%";
 
 
 
-
-// Function to load a new scene
-function loadScene(lesson1) {
-  // Dispose the current scene and engine
-  if (scene) {
-    scene.dispose();
-  }
-  if (engine) {
-    engine.dispose();
-  }
-
-  // Load the new scene
-  var canvas = document.getElementById("renderCanvas");
-  engine = new BABYLON.Engine(canvas, true);
-  BABYLON.SceneLoader.Load("./", "lesson1.js", engine, function (newScene) {
-    scene = newScene;
-    // Start the engine render loop
-    engine.runRenderLoop(function() {
-      scene.render();
-    });
+function loadLesson1() {
+  // Load lesson1.js file
+  BABYLON.SceneLoader.Load("./", "lesson1.js", engine, function (scene) {
+    // Set the loaded scene as the active scene
+    engine.scenes.pop();
+    engine.scenes.push(scene);
   });
 }
+
 
 
 
