@@ -7,13 +7,6 @@ var createScene = function () {
   const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, radius, target, scene);
   camera.attachControl(canvas, true);
   scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
-  
-  function loadLesson1() {
-  BABYLON.SceneLoader.ImportMesh("", "/lesson1.js", scene, function () {
-    // Code to execute after scene has finished loading
-    console.log("Lesson 1 scene loaded");
-  });
-}
 
   
 
@@ -186,15 +179,9 @@ button1.color = "white";
 button1.cornerRadius = 10;
 button1.background = "green";
 button1.onPointerUpObservable.add(function() {
-  // Create a new scene
-  var newScene = new BABYLON.Scene(engine);
-
-  // Add any scene elements you want to the new scene here
-
-  // Open the new scene
-  engine.scenes.push(newScene);
-  engine.enterFullscreen(true);
+  loadLesson1();
 });
+
 gui.addControl(button1);
 
 // Create Lesson 2 button
