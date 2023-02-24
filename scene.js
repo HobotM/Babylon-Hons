@@ -1,5 +1,4 @@
-import { loadLesson1 } from './lesson1.js';
-
+import { lesson1 } from './lesson1.js';
 var createScene = function () {
   //const scene = new BABYLON.Scene(engine);
   const alpha = 3 * Math.PI / 2;
@@ -180,8 +179,9 @@ button1.height = "40px";
 button1.color = "white";
 button1.cornerRadius = 10;
 button1.background = "green";
+// Add click event for "Lesson 1" button
 button1.onPointerUpObservable.add(function() {
-  loadLesson1();
+  loadScene("lesson1scene");
 });
 
 gui.addControl(button1);
@@ -224,6 +224,7 @@ button3.top = "-46%";
 
 
 function loadScene(scene) {
+  
   // Show loading screen
   showLoadingScreen();
 
@@ -244,23 +245,11 @@ function loadScene(scene) {
       hideLoadingScreen();
 
       // Log that the scene was loaded
-      console.log(`${lesson1} loaded`);
+      console.log(`${lesson1scene} loaded`);
     });
   });
   xhr.send();
 }
-
-// Add click event for "Lesson 1" button
-button1.onPointerUpObservable.add(function() {
-  loadScene("lesson1");
-});
-
-
-
-
-
-
-
 
 
 
@@ -434,3 +423,4 @@ button1.onPointerUpObservable.add(function() {
 
   return scene;
 }
+createScene();

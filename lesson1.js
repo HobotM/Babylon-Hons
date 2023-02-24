@@ -1,4 +1,4 @@
-var lesson1 = function () {
+var lesson1scene = function () {
   //const scene = new BABYLON.Scene(engine);
   const alpha = 3 * Math.PI / 2;
   const beta = Math.PI / 5;
