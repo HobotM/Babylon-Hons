@@ -40,11 +40,7 @@ var createScene = function () {
     });
   
     zoomAnimation.setKeys(keys);
-    
-     // Add an easing function to the animation
-  const easeOutCubic = new BABYLON.CubicEase();
-  easeOutCubic.setEasingMode(BABYLON.EasingFunction.EASINGMODE_EASEOUT);
-  zoomAnimation.setEasingFunction(easeOutCubic);
+
   
     setTimeout(() => {
       scene.beginDirectAnimation(camera, [zoomAnimation], 0, duration, false);
@@ -240,7 +236,27 @@ button3.top = "-46%";
 
 
 
+// Function to load a new scene
+function loadScene(lesson1) {
+  // Dispose the current scene and engine
+  if (scene) {
+    scene.dispose();
+  }
+  if (engine) {
+    engine.dispose();
+  }
 
+  // Load the new scene
+  var canvas = document.getElementById("renderCanvas");
+  engine = new BABYLON.Engine(canvas, true);
+  BABYLON.SceneLoader.Load("./", "lesson1.js", engine, function (newScene) {
+    scene = newScene;
+    // Start the engine render loop
+    engine.runRenderLoop(function() {
+      scene.render();
+    });
+  });
+}
 
 
 
