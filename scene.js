@@ -9,7 +9,7 @@ var createScene = function () {
   scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
   
   function loadLesson1() {
-  BABYLON.SceneLoader.ImportMesh("", "lesson1.js", scene, function () {
+  BABYLON.SceneLoader.ImportMesh("", "/lesson1.js", scene, function () {
     // Code to execute after scene has finished loading
     console.log("Lesson 1 scene loaded");
   });
