@@ -34,6 +34,11 @@ var createScene = function () {
     });
   
     zoomAnimation.setKeys(keys);
+    
+     // Add an easing function to the animation
+  const easeOutCubic = new BABYLON.CubicEase();
+  easeOutCubic.setEasingMode(BABYLON.EasingFunction.EASINGMODE_EASEOUT);
+  zoomAnimation.setEasingFunction(easeOutCubic);
   
     setTimeout(() => {
       scene.beginDirectAnimation(camera, [zoomAnimation], 0, duration, false);
