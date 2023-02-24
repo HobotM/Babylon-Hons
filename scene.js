@@ -422,3 +422,14 @@ function loadScene(scene) {
 
   return scene;
 }
+
+var lesson1scene = function () {
+  const scene = new BABYLON.Scene(engine);
+  const alpha = 3 * Math.PI / 2;
+  const beta = Math.PI / 5;
+  const radius = 400;
+  const target = new BABYLON.Vector3(0, 0, -100);
+  const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, radius, target, scene);
+  camera.attachControl(canvas, true);
+  scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+  return scene; }
