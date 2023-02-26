@@ -62,23 +62,21 @@ var createScene = function () {
   zoomToTarget(camera, targetPosition, delay, duration);
 
 
+// Create GUI element
+var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+gui.backgroundIsVisible = false;
 
+// Calculate button width based on screen size
+var buttonWidth = window.innerWidth / 6 - 50;
 
-  // Create GUI element
-  var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-  gui.backgroundIsVisible = false;
-
-  // Calculate button width based on screen size
-  var buttonWidth = window.innerWidth / 6 - 50;
-
-  // Create Lesson 1 button
-  var button1 = BABYLON.GUI.Button.CreateSimpleButton("lesson1", "Lesson 1");
-  button1.width = buttonWidth + "px";
-  button1.height = "40px";
-  button1.color = "white";
-  button1.cornerRadius = 10;
-  button1.background = "green";
-  // Add click event for "Lesson 1" button
+// Create Lesson 1 button
+var button1 = BABYLON.GUI.Button.CreateSimpleButton("lesson1", "Lesson 1");
+button1.width = buttonWidth + "px";
+button1.height = "40px";
+button1.color = "white";
+button1.cornerRadius = 10;
+button1.background = "green";
+// Add click event for "Lesson 1" button
 button1.onPointerUpObservable.add(function () {
   console.log("Switching to Lesson 1 scene");
   engine.stopRenderLoop();
@@ -87,44 +85,54 @@ button1.onPointerUpObservable.add(function () {
   });
 });
 
-  gui.addControl(button1);
+gui.addControl(button1);
 
-  // Create Lesson 2 button
-  var button2 = BABYLON.GUI.Button.CreateSimpleButton("lesson2", "Lesson 2");
-  button2.width = buttonWidth + "px";
-  button2.height = "40px";
-  button2.color = "white";
-  button2.cornerRadius = 10;
-  button2.background = "red";
-  button2.onPointerUpObservable.add(function () {
-    console.log("Lesson 2 button clicked");
+// Create Lesson 2 button
+var button2 = BABYLON.GUI.Button.CreateSimpleButton("lesson2", "Lesson 2");
+button2.width = buttonWidth + "px";
+button2.height = "40px";
+button2.color = "white";
+button2.cornerRadius = 10;
+button2.background = "red";
+button2.onPointerUpObservable.add(function () {
+  console.log("Switching to Lesson 2 scene");
+  engine.stopRenderLoop();
+  engine.runRenderLoop(function () {
+    scene2.render();
   });
-  gui.addControl(button2);
+});
+gui.addControl(button2);
 
-  // Create Lesson 3 button
-  var button3 = BABYLON.GUI.Button.CreateSimpleButton("lesson3", "Lesson 3");
-  button3.width = buttonWidth + "px";
-  button3.height = "40px";
-  button3.color = "white";
-  button3.cornerRadius = 10;
-  button3.background = "blue";
-  button3.onPointerUpObservable.add(function () {
-    console.log("Lesson 3 button clicked");
+// Create Lesson 3 button
+var button3 = BABYLON.GUI.Button.CreateSimpleButton("lesson3", "Lesson 3");
+button3.width = buttonWidth + "px";
+button3.height = "40px";
+button3.color = "white";
+button3.cornerRadius = 10;
+button3.background = "blue";
+button3.onPointerUpObservable.add(function () {
+  console.log("Switching to Lesson 3 scene");
+  engine.stopRenderLoop();
+  engine.runRenderLoop(function () {
+    scene3.render();
   });
-  gui.addControl(button3);
+});
+gui.addControl(button3);
 
-  // Position buttons on top of screen with equal spacing
-  button1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-  button1.left = 10;
-  button1.top = "-46%";
+// Position buttons on top of screen with equal spacing
+button1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+button1.left = 10;
+button1.top = "-46%";
 
-  button2.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-  button2.top = "-46%";
+button2.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+button2.top = "-46%";
 
-  button3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-  button3.left = -10;
-  button3.top = "-46%";
+button3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+button3.left = -10;
+button3.top = "-46%";
 
+
+ 
 
 
   console.log("Rendering " + scene.name);
@@ -171,7 +179,309 @@ var lesson1Scene = function () {
   zoomToTarget(camera, targetPosition, delay, duration);
   console.log("Rendering " + scene1.name);
 
+
+// Create GUI element
+var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+gui.backgroundIsVisible = false;
+
+// Calculate button width based on screen size
+var buttonWidth = window.innerWidth / 6 - 50;
+
+// Create Lesson 1 button
+var button1 = BABYLON.GUI.Button.CreateSimpleButton("lesson1", "Lesson 1");
+button1.width = buttonWidth + "px";
+button1.height = "40px";
+button1.color = "white";
+button1.cornerRadius = 10;
+button1.background = "green";
+// Add click event for "Lesson 1" button
+button1.onPointerUpObservable.add(function () {
+  console.log("Switching to Lesson 1 scene");
+  engine.stopRenderLoop();
+  engine.runRenderLoop(function () {
+    scene1.render();
+  });
+});
+
+gui.addControl(button1);
+
+// Create Lesson 2 button
+var button2 = BABYLON.GUI.Button.CreateSimpleButton("lesson2", "Lesson 2");
+button2.width = buttonWidth + "px";
+button2.height = "40px";
+button2.color = "white";
+button2.cornerRadius = 10;
+button2.background = "red";
+button2.onPointerUpObservable.add(function () {
+  console.log("Switching to Lesson 2 scene");
+  engine.stopRenderLoop();
+  engine.runRenderLoop(function () {
+    scene2.render();
+  });
+});
+gui.addControl(button2);
+
+// Create Lesson 3 button
+var button3 = BABYLON.GUI.Button.CreateSimpleButton("lesson3", "Lesson 3");
+button3.width = buttonWidth + "px";
+button3.height = "40px";
+button3.color = "white";
+button3.cornerRadius = 10;
+button3.background = "blue";
+button3.onPointerUpObservable.add(function () {
+  console.log("Switching to Lesson 3 scene");
+  engine.stopRenderLoop();
+  engine.runRenderLoop(function () {
+    scene3.render();
+  });
+});
+gui.addControl(button3);
+
+// Position buttons on top of screen with equal spacing
+button1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+button1.left = 10;
+button1.top = "-46%";
+
+button2.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+button2.top = "-46%";
+
+button3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+button3.left = -10;
+button3.top = "-46%";
+
+
+
   return scene1;
+
+}
+
+var lesson2Scene = function () {
+  var scene2 = new BABYLON.Scene(engine);
+  const alpha = 3 * Math.PI / 2;
+  const beta = Math.PI / 5;
+  const radius = 400;
+  const target = new BABYLON.Vector3(0, 0, -100);
+  const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, radius, target, scene2);
+  camera.attachControl(canvas, true);
+  scene2.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+ 
+
+
+  // Guitar
+  // Append glTF model to scene.
+  BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", scene2, function (scene) {
+    // Create a default arc rotate camera and light.
+
+    scene2.createDefaultCameraOrLight(true, false, true);
+
+    // The default camera looks at the back of the asset.
+    // Rotate the camera by 180 degrees to the front of the asset.
+    scene2.activeCamera.alpha += Math.PI / 2;
+    // Rotate the mesh around its y-axis
+    scene2.activeCamera.beta -= Math.PI;
+
+
+    // Call the function for each note
+    createNoteInteraction("E-G", new BABYLON.Color3(1, 1, 1), "E-G.mp3");
+    createNoteInteraction("E-F#", new BABYLON.Color3(1, 1, 1), "E-Fs.mp3");
+    createNoteInteraction("E-F", new BABYLON.Color3(1, 1, 1), "E-F.mp3");
+  });
+
+
+  const targetPosition = new BABYLON.Vector3(0, 200, -250);
+  const delay = 3000; // 5-second delay
+  const duration = 3000; // 2-second animation duration
+  zoomToTarget(camera, targetPosition, delay, duration);
+  console.log("Rendering " + scene2.name);
+
+
+// Create GUI element
+var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+gui.backgroundIsVisible = false;
+
+// Calculate button width based on screen size
+var buttonWidth = window.innerWidth / 6 - 50;
+
+// Create Lesson 1 button
+var button1 = BABYLON.GUI.Button.CreateSimpleButton("lesson1", "Lesson 1");
+button1.width = buttonWidth + "px";
+button1.height = "40px";
+button1.color = "white";
+button1.cornerRadius = 10;
+button1.background = "green";
+// Add click event for "Lesson 1" button
+button1.onPointerUpObservable.add(function () {
+  console.log("Switching to Lesson 1 scene");
+  engine.stopRenderLoop();
+  engine.runRenderLoop(function () {
+    scene1.render();
+  });
+});
+
+gui.addControl(button1);
+
+// Create Lesson 2 button
+var button2 = BABYLON.GUI.Button.CreateSimpleButton("lesson2", "Lesson 2");
+button2.width = buttonWidth + "px";
+button2.height = "40px";
+button2.color = "white";
+button2.cornerRadius = 10;
+button2.background = "red";
+button2.onPointerUpObservable.add(function () {
+  console.log("Switching to Lesson 2 scene");
+  engine.stopRenderLoop();
+  engine.runRenderLoop(function () {
+    scene2.render();
+  });
+});
+gui.addControl(button2);
+
+// Create Lesson 3 button
+var button3 = BABYLON.GUI.Button.CreateSimpleButton("lesson3", "Lesson 3");
+button3.width = buttonWidth + "px";
+button3.height = "40px";
+button3.color = "white";
+button3.cornerRadius = 10;
+button3.background = "blue";
+button3.onPointerUpObservable.add(function () {
+  console.log("Switching to Lesson 3 scene");
+  engine.stopRenderLoop();
+  engine.runRenderLoop(function () {
+    scene3.render();
+  });
+});
+gui.addControl(button3);
+
+// Position buttons on top of screen with equal spacing
+button1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+button1.left = 10;
+button1.top = "-46%";
+
+button2.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+button2.top = "-46%";
+
+button3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+button3.left = -10;
+button3.top = "-46%";
+
+
+
+  return scene2;
+
+}
+
+
+var lesson3Scene = function () {
+  var scene3 = new BABYLON.Scene(engine);
+  const alpha = 3 * Math.PI / 2;
+  const beta = Math.PI / 5;
+  const radius = 400;
+  const target = new BABYLON.Vector3(0, 0, -100);
+  const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, radius, target, scene3);
+  camera.attachControl(canvas, true);
+  scene3.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+ 
+
+
+  // Guitar
+  // Append glTF model to scene.
+  BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", scene3, function (scene) {
+    // Create a default arc rotate camera and light.
+
+    scene3.createDefaultCameraOrLight(true, false, true);
+
+    // The default camera looks at the back of the asset.
+    // Rotate the camera by 180 degrees to the front of the asset.
+    scene3.activeCamera.alpha += Math.PI / 2;
+    // Rotate the mesh around its y-axis
+    scene3.activeCamera.beta -= Math.PI;
+
+
+    // Call the function for each note
+    createNoteInteraction("E-G", new BABYLON.Color3(1, 1, 1), "E-G.mp3");
+    createNoteInteraction("E-F#", new BABYLON.Color3(1, 1, 1), "E-Fs.mp3");
+    createNoteInteraction("E-F", new BABYLON.Color3(1, 1, 1), "E-F.mp3");
+  });
+
+
+  const targetPosition = new BABYLON.Vector3(0, 200, -250);
+  const delay = 3000; // 5-second delay
+  const duration = 3000; // 2-second animation duration
+  zoomToTarget(camera, targetPosition, delay, duration);
+  console.log("Rendering " + scene3.name);
+
+// Create GUI element
+var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+gui.backgroundIsVisible = false;
+
+// Calculate button width based on screen size
+var buttonWidth = window.innerWidth / 6 - 50;
+
+// Create Lesson 1 button
+var button1 = BABYLON.GUI.Button.CreateSimpleButton("lesson1", "Lesson 1");
+button1.width = buttonWidth + "px";
+button1.height = "40px";
+button1.color = "white";
+button1.cornerRadius = 10;
+button1.background = "green";
+// Add click event for "Lesson 1" button
+button1.onPointerUpObservable.add(function () {
+  console.log("Switching to Lesson 1 scene");
+  engine.stopRenderLoop();
+  engine.runRenderLoop(function () {
+    scene1.render();
+  });
+});
+
+gui.addControl(button1);
+
+// Create Lesson 2 button
+var button2 = BABYLON.GUI.Button.CreateSimpleButton("lesson2", "Lesson 2");
+button2.width = buttonWidth + "px";
+button2.height = "40px";
+button2.color = "white";
+button2.cornerRadius = 10;
+button2.background = "red";
+button2.onPointerUpObservable.add(function () {
+  console.log("Switching to Lesson 2 scene");
+  engine.stopRenderLoop();
+  engine.runRenderLoop(function () {
+    scene2.render();
+  });
+});
+gui.addControl(button2);
+
+// Create Lesson 3 button
+var button3 = BABYLON.GUI.Button.CreateSimpleButton("lesson3", "Lesson 3");
+button3.width = buttonWidth + "px";
+button3.height = "40px";
+button3.color = "white";
+button3.cornerRadius = 10;
+button3.background = "blue";
+button3.onPointerUpObservable.add(function () {
+  console.log("Switching to Lesson 3 scene");
+  engine.stopRenderLoop();
+  engine.runRenderLoop(function () {
+    scene3.render();
+  });
+});
+gui.addControl(button3);
+
+// Position buttons on top of screen with equal spacing
+button1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+button1.left = 10;
+button1.top = "-46%";
+
+button2.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+button2.top = "-46%";
+
+button3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+button3.left = -10;
+button3.top = "-46%";
+
+
+
+  return scene3;
 
 }
 
@@ -278,3 +588,4 @@ function zoomToTarget(camera, targetPosition, delay = 0, duration = 1000) {
 }
 
 
+  
