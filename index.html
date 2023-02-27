@@ -44,7 +44,21 @@
       z-index: 999;
       opacity: 0;
       transition: opacity 0.5s;
-      margin-top: 50px;
+      margin-top: 70px;
+    }
+
+    #text {
+      position: absolute;
+      top: 10%;
+      left: 20%;
+      padding-top: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: xx-large;
+      font-family: serif;
+      margin-right: 5%;
     }
 
 
@@ -76,6 +90,7 @@
   <script>
     var canvas = document.getElementById("renderCanvas");
     const engine = new BABYLON.Engine(canvas, true);
+    var textElement = document.getElementById("text");
 
 
     var startRenderLoop = function (engine, canvas) {
@@ -87,7 +102,6 @@
       });
     }
     var currentScene = createScene();
-    // Define a variable to store the current scene
 
     engine.runRenderLoop(function () {
       currentScene.render();

@@ -145,9 +145,11 @@ button3.left = -10;
 button3.top = "-46%";
 
 
-var textElement = document.getElementById("text");
-var text = "This is the text that will be shown letter by letter.";
-showTextLetterByLetter(text, 0);
+
+var text = "Welcome to the interactive guitar instrument course. You will learn here how to play notes, scales and chords. Just hover over the fret and click on the desired note";
+setTimeout(function() {
+  showTextLetterByLetter(text, 0);
+}, 5000);
 
 
   return currentScene;
@@ -163,7 +165,7 @@ var lesson1Scene = function () {
   const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, radius, target, currentScene);
   camera.attachControl(canvas, true);
   currentScene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
- 
+  var text = "";
 
 
   // Guitar
@@ -276,7 +278,7 @@ var lesson2Scene = function () {
   const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, radius, target, currentScene);
   camera.attachControl(canvas, true);
   currentScene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
- 
+  var text = "";
 
 
   // Guitar
@@ -391,7 +393,7 @@ var lesson3Scene = function () {
   const camera = new BABYLON.ArcRotateCamera("Camera", alpha, beta, radius, target, currentScene);
   camera.attachControl(canvas, true);
   currentScene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
- 
+  var text = "";
 
 
   // Guitar
@@ -605,16 +607,31 @@ function zoomToTarget(camera, targetPosition, delay = 0, duration = 1000) {
 
 }
 
-
-// Text appear on the screen
+//Show text
 function showTextLetterByLetter(text, index) {
-  if (index < text.length) {
-    textElement.innerHTML += text.charAt(index);
-    index++;
-    setTimeout(showTextLetterByLetter, 50, text, index);
+  // Get the text element
+  var textElement = document.getElementById("text");
+
+  // Check if we've reached the end of the text
+  if (index >= text.length) {
+    return;
   }
+
+  // Get the current text and add the next letter
+  var currentText = textElement.innerHTML;
+  currentText += text.charAt(index);
+
+  // Set the text element's innerHTML to the current text
+  textElement.innerHTML = currentText;
+
+  // Increase the index by 1
+  index++;
+
+  // Call this function again after a delay
+  setTimeout(function() {
+    showTextLetterByLetter(text, index);
+  }, 20);
+
 }
 
-setTimeout(function() {
-  showTextLetterByLetter(text, 0);
-}, 4000);
+
