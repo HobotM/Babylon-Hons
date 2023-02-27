@@ -71,35 +71,35 @@
   </video>
   <canvas id="renderCanvas"></canvas>
   <div id="note-text"></div>
+  <div id="text"></div>
 
   <script>
     var canvas = document.getElementById("renderCanvas");
     const engine = new BABYLON.Engine(canvas, true);
 
+
     var startRenderLoop = function (engine, canvas) {
       engine.runRenderLoop(function () {
-          if (sceneToRender && sceneToRender.activeCamera) {
-              sceneToRender.render();
-          }
+        if (sceneToRender && sceneToRender.activeCamera) {
+          sceneToRender.render();
+        }
+        console.log('Rendering scene:', sceneToRender.name);
       });
-  }
-    //Any other code
-    var scene = createScene();
-    var scene1 = lesson1Scene();
-    var scene2 = lesson2Scene();
-    var scene3 = lesson3Scene();
-
+    }
+    var currentScene = createScene();
+    // Define a variable to store the current scene
 
     engine.runRenderLoop(function () {
-      
-      scene.render();
-      
+      currentScene.render();
     });
+
 
     // Watch for browser/canvas resize events
     window.addEventListener("resize", function () {
       engine.resize();
     });
+
+
 
   </script>
 </body>
