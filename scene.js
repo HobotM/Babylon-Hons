@@ -265,6 +265,15 @@ button3.left = -10;
 button3.top = "-46%";
 
 
+var originalMaterialName = 'E-G';
+var highlightColor = new BABYLON.Color3(1, 1, 1);
+var soundFileNames = 'E-G';
+
+// Call the function and store the pointer observer returned by the function
+var pointerObserver = playRandomNoteInteraction(originalMaterialName, highlightColor, soundFileNames);
+
+
+
   return currentScene;
 
 }
@@ -499,8 +508,6 @@ button3.top = "-46%";
 }
 
    
- 
-
 
 //Create note interaction
 function createNoteInteraction(originalMaterialName, highlightColor, soundFileName) {
@@ -634,4 +641,61 @@ function showTextLetterByLetter(text, index) {
 
 }
 
+function playRandomNoteInteraction(originalMaterialName, highlightColor, soundFileNames) {
+  var pickResult;
+  var originalMaterial;
+  var highlightMaterial;
+  var isHighlighted = false;
+  var pointerObserver;
+
+  // Randomly select a sound file
+  var correctSoundFileName = soundFileNames[Math.floor(Math.random() * soundFileNames.length)];
+
+  originalMaterial = currentScene.getMaterialByName(originalMaterialName);
+  if (!originalMaterial) {
+    console.error("Material not found:", originalMaterialName);
+    return;
+  }
+  highlightMaterial = originalMaterial.clone(originalMaterialName + "_highlight");
+  highlightMaterial.emissiveColor = highlightColor;
+  highlightMaterial.alpha = 0.3;
+  var originalMeshes = currentScene.meshes.filter(function (mesh) {
+    return mesh.material === originalMaterial;
+  });
+  
+  // Play the correct note when the user clicks on a highlighted mesh object
+  function playCorrectNote() {
+    var noteSound = new Audio('Sound/' + correctSoundFileName);
+    noteSound.play();
+    console.log("Success! You played the correct note.");
+    document.getElementById("message").textContent = "Success! You played the correct note.";
+  }
+
+  pointerObserver = currentScene.onPointerObservable.add(function (pointerInfo) {
+    if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERMOVE) {
+      pickResult = currentScene.pick(pointerInfo.event.clientX, pointerInfo.event.clientY, function (mesh) {
+        return originalMeshes.indexOf(mesh) !== -1;
+      });
+      if (pickResult.hit && !isHighlighted) {
+        pickResult.pickedMesh.material = highlightMaterial;
+        isHighlighted = true;
+      } else if (!pickResult.hit && isHighlighted) {
+        originalMeshes.forEach(function (mesh) {
+          mesh.material = originalMaterial;
+        });
+        isHighlighted = false;
+      }
+    } else if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERDOWN && isHighlighted) {
+      // Check if the user played the correct note
+      if (pickResult.pickedMesh.material.name === highlightMaterial.name) {
+        playCorrectNote();
+      } else {
+        console.log("Sorry, that's not the correct note. Please try again.");
+        document.getElementById("message").textContent = "Sorry, that's not the correct note. Please try again.";
+      }
+    }
+  });
+
+  return pointerObserver;
+}
 
