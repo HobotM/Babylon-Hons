@@ -182,6 +182,16 @@ var lesson1Scene = function () {
     currentScene.activeCamera.beta -= Math.PI;
 
 
+
+
+    var originalMaterialNames = ["E-G", "E-F#", "E-F", "G-G#", "G-A", "G-A#", "B-C", "B-C#", "B-D", "D-D#", "D-E", "D-F", "A-A#", "A-B", "A-C", "E1-G", "E1-F#","E1-F"];
+    originalMaterialNames.forEach(function(originalMaterialName) {
+      createNoteInteraction(originalMaterialName, new BABYLON.Color3(1, 1, 1), "E-G.mp3");
+    });
+
+
+
+
   });
 
 
@@ -265,10 +275,6 @@ button3.left = -10;
 button3.top = "-46%";
 
 
-var originalMaterialNames = ["E-G", "E-F#", "E-F", "G-G#", "G-A", "G-A#", "B-C", "B-C#", "B-D", "D-D#", "D-E", "D-F", "A-A#", "A-B", "A-C", "E1-G", "E1-F#","E1-F"];
-originalMaterialNames.forEach(function(originalMaterialName) {
-  createNoteInteraction(originalMaterialName, highlightColor, soundFileName);
-});
 
 
 
