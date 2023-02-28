@@ -1,4 +1,3 @@
-
 var createScene =  function () {
   var currentScene = new BABYLON.Scene(engine);
   const alpha = 3 * Math.PI / 2;
