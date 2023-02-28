@@ -620,9 +620,14 @@ function showTextLetterByLetter(text, index) {
   var textElement = document.getElementById("text");
 
   // Check if we've reached the end of the text
-  if (index >= text.length) {
-    return;
-  }
+    // Check if we've reached the end of the text
+    if (index >= text.length) {
+      setTimeout(function() {
+        // Hide the text element after 10 seconds
+        textElement.style.display = "none";
+      }, 10000);
+      return;
+    }
 
   // Get the current text and add the next letter
   var currentText = textElement.innerHTML;
