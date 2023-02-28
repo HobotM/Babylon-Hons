@@ -266,11 +266,9 @@ button3.top = "-46%";
 
 
 var originalMaterialName = ["E-G", "E-F#", "E-F", "G-G#", "G-A", "G-A#", "B-C", "B-C#", "B-D", "D-D#", "D-E", "D-F", "A-A#", "A-B", "A-C", "E1-G", "E1-F#","E1-F"];
-var highlightColor = new BABYLON.Color3(1, 1, 1);
-var soundFileNames = ["E-G.mp3", "E-Fs.mp3", "E-F.mp3", "G-Gs.mp3", "G-A.mp3", "G-As.mp3", "B-C.mp3", "B-Cs.mp3", "B-D.mp3", "D-Ds.mp3", "D-E.mp3", "D-F.mp3", "A-As.mp3", "A-B.mp3", "A-C.mp3", "E1-G.mp3", "E1-Fs.mp3","E1-F.mp3"];
-
-// Call the function and store the pointer observer returned by the function
-playRandomNoteInteraction(originalMaterialName, highlightColor, soundFileNames);
+originalMaterialNames.forEach(function(originalMaterialName) {
+  createNoteInteraction(originalMaterialName, highlightColor, soundFileName);
+});
 
 
 
@@ -646,59 +644,71 @@ function showTextLetterByLetter(text, index) {
 
 }
 
-function playRandomNoteInteraction(originalMaterialName, highlightColor, soundFileNames) {
+
+function randomNoteLesson1(originalMaterialNames, highlightColor, soundFileName) {
   var pickResult;
-  var originalMaterial;
-  var highlightMaterial;
+  var originalMaterials = [];
+  var highlightMaterials = [];
   var isHighlighted = false;
   var pointerObserver;
 
-  
-  originalMaterial = currentScene.getMaterialByName(originalMaterialName);
-  if (!originalMaterial) {
-    console.error("Material not found:", originalMaterialName);
-    return;
-  }
+  // Get the original materials from the Blender objects
+  originalMaterialNames.forEach(function(name) {
+    var material = currentScene.getMaterialByName(name);
+    if (!material) {
+      console.error("Material not found:", name);
+      return;
+    }
+    originalMaterials.push(material);
 
-  // Randomly select a sound file
-  var randomMaterial = originalMaterial[Math.floor(Math.random() * originalMaterial.length)];
-  console.log(randomMaterial);
-
-
-  highlightMaterial = randomMaterial.clone(originalMaterialName + "_highlight");
-  highlightMaterial.emissiveColor = highlightColor;
-  highlightMaterial.alpha = 0.3;
-  var originalMeshes = currentScene.meshes.filter(function (mesh) {
-    return mesh.material === randomMaterial;
+    // Create a new material for highlighting
+    var highlightMaterial = material.clone(name + "_highlight");
+    highlightMaterial.emissiveColor = highlightColor;
+    highlightMaterial.alpha = 0.3;
+    highlightMaterials.push(highlightMaterial);
   });
-  
-  
 
+  // Cache the meshes with the original materials
+  var originalMeshes = currentScene.meshes.filter(function (mesh) {
+    return originalMaterials.indexOf(mesh.material) !== -1;
+  });
+
+  // Perform the raycasting operation when the mouse is moved
   pointerObserver = currentScene.onPointerObservable.add(function (pointerInfo) {
     if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERMOVE) {
       pickResult = currentScene.pick(pointerInfo.event.clientX, pointerInfo.event.clientY, function (mesh) {
+        // Check if the mesh has one of the original materials
         return originalMeshes.indexOf(mesh) !== -1;
       });
+
+      // Check if the pointer is over a mesh with one of the original materials
       if (pickResult.hit && !isHighlighted) {
-        pickResult.pickedMesh.material = highlightMaterial;
-        isHighlighted = true;
+        // Change the material to the highlight material
+        var index = originalMaterials.indexOf(pickResult.pickedMesh.material);
+        if (index !== -1) {
+          pickResult.pickedMesh.material = highlightMaterials[index];
+          console.log("Highlighted note quad.");
+          isHighlighted = true;
+        }
       } else if (!pickResult.hit && isHighlighted) {
+        // Change back to the original materials
         originalMeshes.forEach(function (mesh) {
-          mesh.material = randomMaterial;
+          var index = originalMaterials.indexOf(mesh.material);
+          if (index !== -1) {
+            mesh.material = originalMaterials[index];
+          }
         });
         isHighlighted = false;
       }
     } else if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERDOWN && isHighlighted) {
-      // Check if the user played the correct note
-      if (pickResult.pickedMesh.material.name === highlightMaterial.name) {
-        playCorrectNote();
-      } else {
-        console.log("Sorry, that's not the correct note. Please try again.");
-        document.getElementById("message").textContent = "Sorry, that's not the correct note. Please try again.";
-      }
+      // Play the sound when the mouse is clicked and the material is highlighted
+      var noteSound = new Audio('Sound/' + soundFileName);
+      noteSound.play();
     }
   });
-
+  
+  // Return the observer object so that it can be disposed later
   return pointerObserver;
 }
+
 
