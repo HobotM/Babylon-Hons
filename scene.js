@@ -189,6 +189,16 @@ var pointerObserver = playRandomNoteInteraction(originalMaterialName, highlightC
 
 
 
+
+
+    var originalMaterialNames = ["E-G", "E-F#", "E-F", "G-G#", "G-A", "G-A#", "B-C", "B-C#", "B-D", "D-D#", "D-E", "D-F", "A-A#", "A-B", "A-C", "E1-G", "E1-F#","E1-F"];
+    originalMaterialNames.forEach(function(originalMaterialName) {
+      createNoteInteraction(originalMaterialName, new BABYLON.Color3(1, 1, 1), "E-G.mp3");
+    });
+
+
+
+
   });
 
 
@@ -270,6 +280,9 @@ button2.top = "-46%";
 button3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
 button3.left = -10;
 button3.top = "-46%";
+
+
+
 
 
   return currentScene;
@@ -505,6 +518,11 @@ button3.top = "-46%";
 
 }
 
+<<<<<<< HEAD
+=======
+   
+
+>>>>>>> 982998c0a85c0fb741e67bb028867e2ec4532818
 //Create note interaction
 function createNoteInteraction(originalMaterialName, highlightColor, soundFileName) {
   var pickResult;
@@ -615,6 +633,7 @@ function showTextLetterByLetter(text, index) {
   var textElement = document.getElementById("text");
 
   // Check if we've reached the end of the text
+<<<<<<< HEAD
   if (index >= text.length) {
     setTimeout(function() {
       // Hide the text element after 10 seconds
@@ -622,6 +641,16 @@ function showTextLetterByLetter(text, index) {
     }, 10000);
     return;
   }
+=======
+    // Check if we've reached the end of the text
+    if (index >= text.length) {
+      setTimeout(function() {
+        // Hide the text element after 10 seconds
+        textElement.style.display = "none";
+      }, 10000);
+      return;
+    }
+>>>>>>> 982998c0a85c0fb741e67bb028867e2ec4532818
 
   // Get the current text and add the next letter
   var currentText = textElement.innerHTML;
@@ -641,6 +670,7 @@ function showTextLetterByLetter(text, index) {
 }
 
 
+<<<<<<< HEAD
 function playRandomNoteInteraction(originalMaterialName, highlightColor, soundFileNames) {
   var pickResult;
   var originalMaterial;
@@ -682,10 +712,65 @@ function playRandomNoteInteraction(originalMaterialName, highlightColor, soundFi
       } else if (!pickResult.hit && isHighlighted) {
         originalMeshes.forEach(function (mesh) {
           mesh.material = originalMaterial;
+=======
+function randomNoteLesson1(originalMaterialNames, highlightColor, soundFileName) {
+  var pickResult;
+  var originalMaterials = [];
+  var highlightMaterials = [];
+  var isHighlighted = false;
+  var pointerObserver;
+
+  // Get the original materials from the Blender objects
+  originalMaterialNames.forEach(function(name) {
+    var material = currentScene.getMaterialByName(name);
+    if (!material) {
+      console.error("Material not found:", name);
+      return;
+    }
+    originalMaterials.push(material);
+
+    // Create a new material for highlighting
+    var highlightMaterial = material.clone(name + "_highlight");
+    highlightMaterial.emissiveColor = highlightColor;
+    highlightMaterial.alpha = 0.3;
+    highlightMaterials.push(highlightMaterial);
+  });
+
+  // Cache the meshes with the original materials
+  var originalMeshes = currentScene.meshes.filter(function (mesh) {
+    return originalMaterials.indexOf(mesh.material) !== -1;
+  });
+
+  // Perform the raycasting operation when the mouse is moved
+  pointerObserver = currentScene.onPointerObservable.add(function (pointerInfo) {
+    if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERMOVE) {
+      pickResult = currentScene.pick(pointerInfo.event.clientX, pointerInfo.event.clientY, function (mesh) {
+        // Check if the mesh has one of the original materials
+        return originalMeshes.indexOf(mesh) !== -1;
+      });
+
+      // Check if the pointer is over a mesh with one of the original materials
+      if (pickResult.hit && !isHighlighted) {
+        // Change the material to the highlight material
+        var index = originalMaterials.indexOf(pickResult.pickedMesh.material);
+        if (index !== -1) {
+          pickResult.pickedMesh.material = highlightMaterials[index];
+          console.log("Highlighted note quad.");
+          isHighlighted = true;
+        }
+      } else if (!pickResult.hit && isHighlighted) {
+        // Change back to the original materials
+        originalMeshes.forEach(function (mesh) {
+          var index = originalMaterials.indexOf(mesh.material);
+          if (index !== -1) {
+            mesh.material = originalMaterials[index];
+          }
+>>>>>>> 982998c0a85c0fb741e67bb028867e2ec4532818
         });
         isHighlighted = false;
       }
     } else if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERDOWN && isHighlighted) {
+<<<<<<< HEAD
       // Check if the user played the correct note
       if (pickResult.pickedMesh.material.name === highlightMaterial.name) {
         playCorrectNote();
@@ -697,3 +782,16 @@ function playRandomNoteInteraction(originalMaterialName, highlightColor, soundFi
   });
   return pointerObserver;
 }
+=======
+      // Play the sound when the mouse is clicked and the material is highlighted
+      var noteSound = new Audio('Sound/' + soundFileName);
+      noteSound.play();
+    }
+  });
+  
+  // Return the observer object so that it can be disposed later
+  return pointerObserver;
+}
+
+
+>>>>>>> 982998c0a85c0fb741e67bb028867e2ec4532818
