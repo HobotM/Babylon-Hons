@@ -267,7 +267,7 @@ button3.top = "-46%";
 
 var originalMaterialName = ["E-G", "E-F#", "E-F", "G-G#", "G-A", "G-A#", "B-C", "B-C#", "B-D", "D-D#", "D-E", "D-F", "A-A#", "A-B", "A-C", "E1-G", "E1-F#","E1-F"];
 var highlightColor = new BABYLON.Color3(1, 1, 1);
-var soundFileNames = ["E-G.mp3", "E-F#", "E-F", "G-G#", "G-A", "G-A#", "B-C", "B-C#", "B-D", "D-D#", "D-E", "D-F", "A-A#", "A-B", "A-C", "E1-G", "E1-F#","E1-F"];
+var soundFileNames = ["E-G.mp3", "E-Fs.mp3", "E-F.mp3", "G-Gs.mp3", "G-A.mp3", "G-As.mp3", "B-C.mp3", "B-Cs.mp3", "B-D.mp3", "D-Ds.mp3", "D-E.mp3", "D-F.mp3", "A-As.mp3", "A-B.mp3", "A-C.mp3", "E1-G.mp3", "E1-Fs.mp3","E1-F.mp3"];
 
 // Call the function and store the pointer observer returned by the function
 playRandomNoteInteraction(originalMaterialName, highlightColor, soundFileNames);
