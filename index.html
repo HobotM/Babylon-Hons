@@ -60,6 +60,19 @@
       font-family: serif;
       margin-right: 5%;
     }
+    #lesson1 {
+      position: absolute;
+      top: 10%;
+      left: 20%;
+      padding-top: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: xx-large;
+      font-family: serif;
+      margin-right: 5%;
+    }
 
 
     /* Media queries */
@@ -86,10 +99,10 @@
   <canvas id="renderCanvas"></canvas>
   <div id="note-text"></div>
   <div id="text"></div>
-
+  <div id="lesson1"></div>
   <script>
     var canvas = document.getElementById("renderCanvas");
-    const engine = new BABYLON.Engine(canvas, true);
+    var engine = new BABYLON.Engine(canvas, true);
     var textElement = document.getElementById("text");
 
 
