@@ -8,6 +8,18 @@ var createScene = function () {
   camera.attachControl(canvas, true);
   currentScene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
 
+  container.style.display = "none";
+
+
+  // Create GUI element
+  var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+  gui.backgroundIsVisible = false;
+
+  // Calculate button width based on screen size
+  var buttonWidth = window.innerWidth / 6 - 50;
+  createLessonButtons(gui, buttonWidth);
+
+
 
   // Guitar
   // Append glTF model to scene.
@@ -27,102 +39,12 @@ var createScene = function () {
     console.log(currentScene instanceof BABYLON.Scene);
 
 
+
+
     const targetPosition = new BABYLON.Vector3(0, 200, -250);
     const delay = 3000; // 3-second delay
     const duration = 3000; // 3-second animation duration
     zoomToTarget(camera, targetPosition, delay, duration);
-
-    // Create GUI element
-    var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-    gui.backgroundIsVisible = false;
-
-    // Calculate button width based on screen size
-    var buttonWidth = window.innerWidth / 6 - 50;
-
-    // Create Lesson 1 button
-    var button1 = BABYLON.GUI.Button.CreateSimpleButton("lesson1", "Lesson 1");
-    button1.width = buttonWidth + "px";
-    button1.height = "40px";
-    button1.color = "white";
-    button1.cornerRadius = 10;
-    button1.background = "green";
-    // Add click event for "Lesson 1" button
-    button1.onPointerUpObservable.add(function () {
-      console.log("Switching to Lesson 1 scene");
-      const textElement = document.getElementById("text");
-      textElement.style.display = "none"; // Hide the text element
-      clearHighlighting();
-      // The cache of meshes with the original material has been cleared.
-      engine.stopRenderLoop(); // Stop previous render loop
-      if (currentScene) {
-        currentScene.dispose(); // Dispose of previous scene
-      }
-      currentScene = lesson1Scene(); // Create new scene and set it as current
-      engine.runRenderLoop(function () {
-        currentScene.render(); // Render current scene
-      });
-    });
-
-
-    gui.addControl(button1);
-
-    // Create Lesson 2 button
-    var button2 = BABYLON.GUI.Button.CreateSimpleButton("lesson2", "Lesson 2");
-    button2.width = buttonWidth + "px";
-    button2.height = "40px";
-    button2.color = "white";
-    button2.cornerRadius = 10;
-    button2.background = "red";
-    // Add click event for "Lesson 2" button
-    button2.onPointerUpObservable.add(function () {
-      console.log("Switching to Lesson 2 scene");
-      engine.stopRenderLoop(); // Stop previous render loop
-      if (currentScene) {
-        currentScene.dispose(); // Dispose of previous scene
-      }
-      currentScene = lesson2Scene(); // Create new scene and set it as current
-      engine.runRenderLoop(function () {
-        currentScene.render(); // Render current scene
-      });
-    });
-    gui.addControl(button2);
-
-    // Create Lesson 3 button
-    var button3 = BABYLON.GUI.Button.CreateSimpleButton("lesson3", "Lesson 3");
-    button3.width = buttonWidth + "px";
-    button3.height = "40px";
-    button3.color = "white";
-    button3.cornerRadius = 10;
-    button3.background = "blue";
-    // Add click event for "Lesson 3" button
-    button3.onPointerUpObservable.add(function () {
-
-      console.log("Switching to Lesson 3 scene");
-      engine.stopRenderLoop(); // Stop previous render loop
-      if (currentScene) {
-        currentScene.dispose(); // Dispose of previous scene
-      }
-      currentScene = lesson3Scene(); // Create new scene and set it as current
-      engine.runRenderLoop(function () {
-        currentScene.render(); // Render current scene
-      });
-    });
-
-
-    gui.addControl(button3);
-
-    // Position buttons on top of screen with equal spacing
-    button1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-    button1.left = 10;
-    button1.top = "-46%";
-
-    button2.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-    button2.top = "-46%";
-
-    button3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-    button3.left = -10;
-    button3.top = "-46%";
-
 
 
     var text = "Welcome to the interactive guitar instrument course. You will learn here how to play notes, scales and chords. Just hover over the fret and click on the desired note";
@@ -156,6 +78,17 @@ var lesson1Scene = function () {
   currentScene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
 
 
+  // Buttons for the lessons
+  // Create GUI element
+  var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+  gui.backgroundIsVisible = false;
+
+  // Calculate button width based on screen size
+  var buttonWidth = window.innerWidth / 6 - 50;
+  createLessonButtons(gui, buttonWidth);
+
+
+
   // Guitar
   // Append glTF model to scene.
   BABYLON.SceneLoader.Append("electric_guitar/", "scene.gltf", currentScene, function (currentScene) {
@@ -172,101 +105,6 @@ var lesson1Scene = function () {
 
 
     console.log(currentScene instanceof BABYLON.Scene);
-
-
-
-    // Create GUI element
-    var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-    gui.backgroundIsVisible = false;
-
-    // Calculate button width based on screen size
-    var buttonWidth = window.innerWidth / 6 - 50;
-
-    // Create Lesson 1 button
-    var button1 = BABYLON.GUI.Button.CreateSimpleButton("lesson1", "Lesson 1");
-    button1.width = buttonWidth + "px";
-    button1.height = "40px";
-    button1.color = "white";
-    button1.cornerRadius = 10;
-    button1.background = "green";
-    // Add click event for "Lesson 1" button
-    button1.onPointerUpObservable.add(function () {
-      console.log("Switching to Lesson 1 scene");
-      const textElement = document.getElementById("text");
-      textElement.style.display = "none"; // Hide the text element
-      clearHighlighting();
-      // The cache of meshes with the original material has been cleared.
-      engine.stopRenderLoop(); // Stop previous render loop
-      if (currentScene) {
-        currentScene.dispose(); // Dispose of previous scene
-      }
-      currentScene = lesson1Scene(); // Create new scene and set it as current
-      engine.runRenderLoop(function () {
-        currentScene.render(); // Render current scene
-      });
-    });
-
-
-    gui.addControl(button1);
-
-    // Create Lesson 2 button
-    var button2 = BABYLON.GUI.Button.CreateSimpleButton("lesson2", "Lesson 2");
-    button2.width = buttonWidth + "px";
-    button2.height = "40px";
-    button2.color = "white";
-    button2.cornerRadius = 10;
-    button2.background = "red";
-    // Add click event for "Lesson 2" button
-    button2.onPointerUpObservable.add(function () {
-      console.log("Switching to Lesson 2 scene");
-      engine.stopRenderLoop(); // Stop previous render loop
-      if (currentScene) {
-        currentScene.dispose(); // Dispose of previous scene
-      }
-      currentScene = lesson2Scene(); // Create new scene and set it as current
-      engine.runRenderLoop(function () {
-        currentScene.render(); // Render current scene
-      });
-    });
-    gui.addControl(button2);
-
-    // Create Lesson 3 button
-    var button3 = BABYLON.GUI.Button.CreateSimpleButton("lesson3", "Lesson 3");
-    button3.width = buttonWidth + "px";
-    button3.height = "40px";
-    button3.color = "white";
-    button3.cornerRadius = 10;
-    button3.background = "blue";
-    // Add click event for "Lesson 3" button
-    button3.onPointerUpObservable.add(function () {
-
-      console.log("Switching to Lesson 3 scene");
-      engine.stopRenderLoop(); // Stop previous render loop
-      if (currentScene) {
-        currentScene.dispose(); // Dispose of previous scene
-      }
-      currentScene = lesson3Scene(); // Create new scene and set it as current
-      engine.runRenderLoop(function () {
-        currentScene.render(); // Render current scene
-      });
-    });
-
-
-    gui.addControl(button3);
-
-    // Position buttons on top of screen with equal spacing
-    button1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-    button1.left = 10;
-    button1.top = "-46%";
-
-    button2.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-    button2.top = "-46%";
-
-    button3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-    button3.left = -10;
-    button3.top = "-46%";
-
-
 
 
     // Call the function for each note using js objects
@@ -319,93 +157,15 @@ var lesson2Scene = function () {
     const duration = 3000; // 3-second animation duration
     zoomToTarget(camera, targetPosition, delay, duration);
 
-
+    // Buttons for the lessons
     // Create GUI element
     var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
     gui.backgroundIsVisible = false;
 
     // Calculate button width based on screen size
     var buttonWidth = window.innerWidth / 6 - 50;
+    createLessonButtons(gui, buttonWidth);
 
-    // Create Lesson 1 button
-    var button1 = BABYLON.GUI.Button.CreateSimpleButton("lesson1", "Lesson 1");
-    button1.width = buttonWidth + "px";
-    button1.height = "40px";
-    button1.color = "white";
-    button1.cornerRadius = 10;
-    button1.background = "green";
-    // Add click event for "Lesson 1" button
-    button1.onPointerUpObservable.add(function () {
-      clearHighlighting();
-      const textElement = document.getElementById("text");
-      textElement.style.display = "none"; // Hide the text element
-      console.log("Switching to Lesson 1 scene");
-      engine.stopRenderLoop(); // Stop previous render loop
-      if (currentScene) {
-        currentScene.dispose(); // Dispose of previous scene
-      }
-      currentScene = lesson1Scene(); // Create new scene and set it as current
-      engine.runRenderLoop(function () {
-        currentScene.render(); // Render current scene
-      });
-    });
-
-    gui.addControl(button1);
-
-    // Create Lesson 2 button
-    var button2 = BABYLON.GUI.Button.CreateSimpleButton("lesson2", "Lesson 2");
-    button2.width = buttonWidth + "px";
-    button2.height = "40px";
-    button2.color = "white";
-    button2.cornerRadius = 10;
-    button2.background = "red";
-    // Add click event for "Lesson 2" button
-    button2.onPointerUpObservable.add(function () {
-      console.log("Switching to Lesson 2 scene");
-      engine.stopRenderLoop(); // Stop previous render loop
-      if (currentScene) {
-        currentScene.dispose(); // Dispose of previous scene
-      }
-      currentScene = lesson2Scene(); // Create new scene and set it as current
-      engine.runRenderLoop(function () {
-        currentScene.render(); // Render current scene
-      });
-    });
-
-    gui.addControl(button2);
-
-    // Create Lesson 3 button
-    var button3 = BABYLON.GUI.Button.CreateSimpleButton("lesson3", "Lesson 3");
-    button3.width = buttonWidth + "px";
-    button3.height = "40px";
-    button3.color = "white";
-    button3.cornerRadius = 10;
-    button3.background = "blue";
-    // Add click event for "Lesson 3" button
-    button3.onPointerUpObservable.add(function () {
-      console.log("Switching to Lesson 3 scene");
-      engine.stopRenderLoop(); // Stop previous render loop
-      if (currentScene) {
-        currentScene.dispose(); // Dispose of previous scene
-      }
-      currentScene = lesson3Scene(); // Create new scene and set it as current
-      engine.runRenderLoop(function () {
-        currentScene.render(); // Render current scene
-      });
-    });
-    gui.addControl(button3);
-
-    // Position buttons on top of screen with equal spacing
-    button1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-    button1.left = 10;
-    button1.top = "-46%";
-
-    button2.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-    button2.top = "-46%";
-
-    button3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-    button3.left = -10;
-    button3.top = "-46%";
 
     // Call the function for each note using js objects
     notes.forEach(function (note) {
@@ -455,99 +215,19 @@ var lesson3Scene = function () {
     const duration = 3000; // 3-second animation duration
     zoomToTarget(camera, targetPosition, delay, duration);
 
-
+    // Buttons for the lessons
     // Create GUI element
     var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
     gui.backgroundIsVisible = false;
 
     // Calculate button width based on screen size
     var buttonWidth = window.innerWidth / 6 - 50;
-
-    // Create Lesson 1 button
-    var button1 = BABYLON.GUI.Button.CreateSimpleButton("lesson1", "Lesson 1");
-    button1.width = buttonWidth + "px";
-    button1.height = "40px";
-    button1.color = "white";
-    button1.cornerRadius = 10;
-    button1.background = "green";
-    // Add click event for "Lesson 1" button
-    button1.onPointerUpObservable.add(function () {
-      clearHighlighting();
-      const textElement = document.getElementById("text");
-      textElement.style.display = "none"; // Hide the text element
-      console.log("Switching to Lesson 1 scene");
-      engine.stopRenderLoop(); // Stop previous render loop
-      if (currentScene) {
-        currentScene.dispose(); // Dispose of previous scene
-      }
-      currentScene = lesson1Scene(); // Create new scene and set it as current
-      engine.runRenderLoop(function () {
-        currentScene.render(); // Render current scene
-      });
-    });
-
-    gui.addControl(button1);
-
-    // Create Lesson 2 button
-    var button2 = BABYLON.GUI.Button.CreateSimpleButton("lesson2", "Lesson 2");
-    button2.width = buttonWidth + "px";
-    button2.height = "40px";
-    button2.color = "white";
-    button2.cornerRadius = 10;
-    button2.background = "red";
-    // Add click event for "Lesson 2" button
-    button2.onPointerUpObservable.add(function () {
-      console.log("Switching to Lesson 2 scene");
-      engine.stopRenderLoop(); // Stop previous render loop
-      if (currentScene) {
-        currentScene.dispose(); // Dispose of previous scene
-      }
-      currentScene = lesson2Scene(); // Create new scene and set it as current
-      engine.runRenderLoop(function () {
-        currentScene.render(); // Render current scene
-      });
-    });
-
-    gui.addControl(button2);
-
-    // Create Lesson 3 button
-    var button3 = BABYLON.GUI.Button.CreateSimpleButton("lesson3", "Lesson 3");
-    button3.width = buttonWidth + "px";
-    button3.height = "40px";
-    button3.color = "white";
-    button3.cornerRadius = 10;
-    button3.background = "blue";
-    // Add click event for "Lesson 3" button
-    button3.onPointerUpObservable.add(function () {
-      console.log("Switching to Lesson 3 scene");
-      engine.stopRenderLoop(); // Stop previous render loop
-      if (currentScene) {
-        currentScene.dispose(); // Dispose of previous scene
-      }
-      currentScene = lesson3Scene(); // Create new scene and set it as current
-      engine.runRenderLoop(function () {
-        currentScene.render(); // Render current scene
-      });
-    });
-    gui.addControl(button3);
-
-    // Position buttons on top of screen with equal spacing
-    button1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-    button1.left = 10;
-    button1.top = "-46%";
-
-    button2.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-    button2.top = "-46%";
-
-    button3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-    button3.left = -10;
-    button3.top = "-46%";
+    createLessonButtons(gui, buttonWidth);
 
     // Call the function for each note using js objects
     notes.forEach(function (note) {
       myFunction(note.originalMaterialName, note.highlightColor, note.soundFileName, currentScene);
     });
-
 
   });
 
@@ -724,6 +404,7 @@ function showTextLetterByLetter(text, index) {
 
 }
 
+// Guitar Material interaction
 let myFunction = async function createNoteInteraction(originalMaterialName, highlightColor, soundFileName, currentScene) {
   let originalMaterial;
   let highlightMaterial;
@@ -922,9 +603,10 @@ function clearHighlighting() {
   originalMeshes = [];
 }
 
+
+// Guitar Material interaction + lesson 1 interactive exercise
 let correctAttempts = 0;
 let incorrectAttempts = 0;
-
 let myFunction4 = async function createNoteInteraction1(originalMaterialName, highlightColor, soundFileName, currentScene) {
   let originalMaterial = currentScene.getMaterialByName(originalMaterialName);
 
@@ -1027,16 +709,103 @@ let myFunction4 = async function createNoteInteraction1(originalMaterialName, hi
       "C#",
       "D#"
     ];
-  
+
     // Generate a random index within the range of notes in the original array
     const randomIndex = Math.floor(Math.random() * noteNames.length);
-  
+
     // Return the note at the random index
     return noteNames[randomIndex];
   }
-  
+
 
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 };
+
+// Create Gui buttons for each lesson
+function createLessonButtons(gui, buttonWidth) {
+  // Create Lesson 1 button
+  var button1 = BABYLON.GUI.Button.CreateSimpleButton("lesson1", "Lesson 1");
+  button1.width = buttonWidth + "px";
+  button1.height = "40px";
+  button1.color = "white";
+  button1.cornerRadius = 10;
+  button1.background = "green";
+  // Add click event for "Lesson 1" button
+  button1.onPointerUpObservable.add(function () {
+    console.log("Switching to Lesson 1 scene");
+    textElement.style.display = "none"; // Hide the text element
+    container.style.display = "block";
+    clearHighlighting();
+    // The cache of meshes with the original material has been cleared.
+    engine.stopRenderLoop(); // Stop previous render loop
+    if (currentScene) {
+      currentScene.dispose(); // Dispose of previous scene
+    }
+    currentScene = lesson1Scene(); // Create new scene and set it as current
+    engine.runRenderLoop(function () {
+      currentScene.render(); // Render current scene
+    });
+  });
+
+  gui.addControl(button1);
+
+  // Create Lesson 2 button
+  var button2 = BABYLON.GUI.Button.CreateSimpleButton("lesson2", "Lesson 2");
+  button2.width = buttonWidth + "px";
+  button2.height = "40px";
+  button2.color = "white";
+  button2.cornerRadius = 10;
+  button2.background = "red";
+  // Add click event for "Lesson 2" button
+  button2.onPointerUpObservable.add(function () {
+    console.log("Switching to Lesson 2 scene");
+    container.style.display = "none";
+    engine.stopRenderLoop(); // Stop previous render loop
+    if (currentScene) {
+      currentScene.dispose(); // Dispose of previous scene
+    }
+    currentScene = lesson2Scene(); // Create new scene and set it as current
+    engine.runRenderLoop(function () {
+      currentScene.render(); // Render current scene
+    });
+  });
+  gui.addControl(button2);
+
+  // Create Lesson 3 button
+  var button3 = BABYLON.GUI.Button.CreateSimpleButton("lesson3", "Lesson 3");
+  button3.width = buttonWidth + "px";
+  button3.height = "40px";
+  button3.color = "white";
+  button3.cornerRadius = 10;
+  button3.background = "blue";
+  // Add click event for "Lesson 3" button
+  button3.onPointerUpObservable.add(function () {
+    container.style.display = "none";
+    console.log("Switching to Lesson 3 scene");
+    engine.stopRenderLoop(); // Stop previous render loop
+    if (currentScene) {
+      currentScene.dispose(); // Dispose of previous scene
+    }
+    currentScene = lesson3Scene(); // Create new scene and set it as current
+    engine.runRenderLoop(function () {
+      currentScene.render(); // Render current scene
+    });
+  });
+
+  gui.addControl(button3);
+
+  // Position buttons on top of screen with equal spacing
+  button1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+  button1.left = 10;
+  button1.top = "-46%";
+
+  button2.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+  button2.top = "-46%";
+
+  button3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+  button3.left = -10;
+  button3.top = "-46%";
+}
+

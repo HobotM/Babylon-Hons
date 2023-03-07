@@ -161,10 +161,11 @@
   <div id="note-text"></div>
   <div id="text"></div>
   <div id="lesson1"></div>
-  <div class="container">
+  <div id="container" class="container">
     <div id="correct">Correct Attempts: <span id="correct-attempts">0</span></div>
     <div id="incorrect">Incorrect Attempts: <span id="incorrect-attempts">0</span></div>
-  </div>
+</div>
+
   
 
 
@@ -172,6 +173,7 @@
     var canvas = document.getElementById("renderCanvas");
     var engine = new BABYLON.Engine(canvas, true);
     var textElement = document.getElementById("text");
+    const container = document.getElementById("container");
 
 
     var startRenderLoop = function (engine, canvas) {
