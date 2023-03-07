@@ -60,6 +60,67 @@
       font-family: serif;
       margin-right: 5%;
     }
+
+ 
+
+/* Use Flexbox layout on the container element */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+}
+
+/* Style the correct attempts element */
+#correct {
+  color: white;
+  font-weight: bold;
+  font-size: large;
+}
+
+/* Style the incorrect attempts element */
+#incorrect {
+  color: white;
+  font-weight: bold;
+  font-size: large;
+
+}
+
+/* Style the child elements */
+.container > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.container > div > span {
+  font-weight: bold;
+}
+
+/* Style the correct attempts span element */
+#correct-attempts {
+  padding-left: 20px;
+  color: green;
+  font-size: large;
+
+}
+
+/* Style the incorrect attempts span element */
+#incorrect-attempts {
+  color: red;
+  padding-left: 20px;
+  font-size: large;
+
+}
+
+
+
+
     #lesson1 {
       position: absolute;
       top: 10%;
@@ -100,6 +161,13 @@
   <div id="note-text"></div>
   <div id="text"></div>
   <div id="lesson1"></div>
+  <div class="container">
+    <div id="correct">Correct Attempts: <span id="correct-attempts">0</span></div>
+    <div id="incorrect">Incorrect Attempts: <span id="incorrect-attempts">0</span></div>
+  </div>
+  
+
+
   <script>
     var canvas = document.getElementById("renderCanvas");
     var engine = new BABYLON.Engine(canvas, true);

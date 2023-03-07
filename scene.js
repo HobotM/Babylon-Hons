@@ -922,6 +922,9 @@ function clearHighlighting() {
   originalMeshes = [];
 }
 
+let correctAttempts = 0;
+let incorrectAttempts = 0;
+
 let myFunction4 = async function createNoteInteraction1(originalMaterialName, highlightColor, soundFileName, currentScene) {
   let originalMaterial = currentScene.getMaterialByName(originalMaterialName);
 
@@ -944,30 +947,29 @@ let myFunction4 = async function createNoteInteraction1(originalMaterialName, hi
   noteText.innerHTML = "Play the note " + displayedNote;
   noteText.style.opacity = 1;
 
-
   while (true) {
     const playedNote = await getUserInput(textAfterDash, originalMeshes);
     console.log(playedNote + " just clicked");
     console.log("Next note to play:", displayedNote);
-  
-    if (playedNote === displayedNote) {
+
+    if (playedNote == displayedNote) {
       noteText.style.opacity = 1;
       displayedNote = getRandomNote();
       console.log("Next note to play:", displayedNote);
       textAfterDash = originalMaterialName.split("-")[1];
       noteText.innerHTML = "Play the note " + displayedNote;
-  
-      if (playedNote === displayedNote) {
-        console.log("Correct!");
-      }
-  
+
+      correctAttempts++;
+      console.log("Correct!");
+      document.getElementById("correct-attempts").innerHTML = correctAttempts;
     } else {
-      console.log("Wrong. The note was " + displayedNote);
-  noteText.style.opacity = 1;
-  await sleep(1000);
+      incorrectAttempts++;
+      console.log("Incorrect!");
+      document.getElementById("incorrect-attempts").innerHTML = incorrectAttempts;
+      noteText.style.opacity = 1;
+      noteText.innerHTML = "Incorrect! Play the note " + displayedNote;
     }
   }
-  
 
   async function getUserInput(textAfterDash, originalMeshes) {
     return new Promise(resolve => {
@@ -1004,7 +1006,6 @@ let myFunction4 = async function createNoteInteraction1(originalMaterialName, hi
           setTimeout(() => {
             originalMeshes.forEach(mesh => mesh.material = originalMaterial);
             isHighlighted = false;
-            noteText.style.opacity = 0;
             resolve(playedNote);
           }, 1000);
         }
